@@ -18,4 +18,6 @@ enfermedades <- fromJSON(file ="DATOS/enfermedades.json")
 enfermedad_DF <- spread_all(enfermedades)
 str(enfermedad_DF)
 
-#nuevo cambio
+medicamentos <- fromJSON(file ="DATOS/medicamentos_comunidad.json")
+medicamentos_DF <- spread_all(medicamentos)
+str(medicamentos_DF)
