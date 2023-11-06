@@ -11,3 +11,11 @@ output:
     toc: true
     toc_float: true
 ---
+
+library(rjson)
+library(tidyjson)
+enfermedades <- fromJSON(file ="DATOS/enfermedades.json")
+enfermedad_DF <- spread_all(enfermedades)
+str(enfermedad_DF)
+
+#nuevo cambio
