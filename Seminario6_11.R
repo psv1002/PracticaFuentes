@@ -11,7 +11,8 @@ output:
     toc: true
     toc_float: true
 ---
-
+#Importacion de datos
+      
 library(rjson)
 library(tidyjson)
 enfermedades <- fromJSON(file ="DATOS/enfermedades.json")
