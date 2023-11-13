@@ -1,14 +1,34 @@
 ---
-title: "Seminario"
-author: "Paula Santamaria Velasco"
-date: "`r Sys.Date()`"
-output: html_document
+title: "Seminario Fuentes"
+author:
+  - "Aitana Crespo Ferrero" 
+  - "Paula Santamaría Velasco" 
+  - "Beatriz Alonso Martín"
+date: "`r format(Sys.time(), '%d %B, %Y')`r"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+##Importacion de datos
+```{r}
+library(rjson)
+library(tidyjson)
+enfermedades <- fromJSON(file ="DATOS/enfermedades.json")
+enfermedad_DF <- spread_all(enfermedades)
+str(enfermedad_DF)
+
+medicamentos <- fromJSON(file ="DATOS/medicamentos_comunidad.json")
+medicamentos_DF <- spread_all(medicamentos)
+str(medicamentos_DF)
+```
+      
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.

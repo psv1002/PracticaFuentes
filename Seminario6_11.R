@@ -1,15 +1,15 @@
 ---
-title:"Seminario Fuentes"
+  title:"Seminario Fuentes"
 author:
   - "Aitana Crespo Ferrero" 
-  - "Paula Santamaría Velasco" 
-  - "Beatriz Alonso Martín"
+- "Paula Santamaría Velasco" 
+- "Beatriz Alonso Martín"
 date:"`r format(Sys.time(), '%d %B, %Y')`r"
 output:
   html_document:
-    df_print: paged
-    toc: true
-    toc_float: true
+  df_print: paged
+toc: true
+toc_float: true
 ---
 #Importacion de datos
       
