@@ -16,6 +16,14 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Introduccion
+
+## Medicamentos y enfermedades
+### Antidepresivos/estimulantes
+### Demencia
+### Cáncer de páncreas
+### Enfermedades isquémicas
+
 ## Objetivos 
 ### Objetivo global 
 El objetivo global de nuestro trabajo es analizar la relacion de antidepresivos/estimulantes con el número de defuncion por enfermedad.
