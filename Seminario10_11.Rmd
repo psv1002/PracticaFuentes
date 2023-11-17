@@ -18,15 +18,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Objetivos 
 ### Objetivo global 
-Relacion de antidepresivos/estimulantes con numero de defuncion por enfermedad 
+El objetivo global de nuestro trabajo es analizar la relacion de antidepresivos/estimulantes con el número de defuncion por enfermedad.
+Nuestros datos han sido extraídos desde www.datos.gob en formato .json:
+- Numero de defunciones por enfermedad según sexo y comunidad autónoma.
+- Porcentaje de medicamentos consumidos según sexo y comunidad autónoma.
 
 ### Objetivos especificos
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por demencia 
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por cáncer de páncreas
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por enfermedades isquémicas
-
-
-
 
 
 ## Importacion de datos
