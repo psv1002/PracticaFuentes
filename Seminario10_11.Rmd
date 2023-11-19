@@ -23,6 +23,15 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Demencia
 ### Cáncer de páncreas
 ### Enfermedades isquémicas
+Las enfermedades isquémicas producen la reducción del flujo sanguíneo en los tejidos del cuerpo humano, es decir disminuye el nivel de nutrientes y oxígeno en las zonas afectadas. 
+Síntomas:
+- Dolor de cuello o de mandíbula
+- Dolor de brazo o de hombro
+- Sudoración
+- Cansancio
+- Dificultad para respirar
+- Latido del corazón rápido
+- Náuseas y vomitos
 
 ## Objetivos 
 ### Objetivo global 
