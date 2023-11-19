@@ -22,6 +22,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Antidepresivos/estimulantes
 ### Demencia
 ### Cáncer de páncreas
+El cáncer de páncreas se produce por la formación incontrolada de células malignas cancerosas en los tejidos del páncreas, por lo que las celulas sanas de este, dejan de funcionar correctamente.
+Síntomas:
+- Ictericia
+- Materia fecal de color claro
+- Orina de color oscuro
+- Pérdida de peso de razón desconocida
+- Pérdida de apetito
+- Dolor en el abdomen y espalda
+- Sensación de mucho cansancio
+
 ### Enfermedades isquémicas
 Las enfermedades isquémicas producen la reducción del flujo sanguíneo en los tejidos del cuerpo humano, es decir disminuye el nivel de nutrientes y oxígeno en las zonas afectadas. 
 Síntomas:
@@ -79,3 +89,4 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 ## Bibliografia
 https://www.topdoctors.es/diccionario-medico/isquemia
+https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq
