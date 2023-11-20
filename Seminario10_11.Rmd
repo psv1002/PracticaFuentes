@@ -44,7 +44,13 @@ Síntomas:
 - Náuseas y vomitos
 
 ##Demencia 
-La demencia es una enfermedad que se produce por daños a las celulas del cerebro.Esta lesion celular interfiere con la capacidad de las celulas cerebrales para comunicarse entre ellas. Cuando estas mismas no pueden comunicarse con normalidad, el pensamiento, el conportamiento y los sentimientos se ven afectados.
+La demencia es una enfermedad que se produce por daños a las celulas del cerebro.Esta lesión celular interfiere con la capacidad de las células cerebrales para comunicarse entre ellas. Cuando estas mismas no pueden comunicarse con normalidad, el pensamiento, el conportamiento y los sentimientos se ven afectados.
+Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las siguientes funciones mentales basicas:
+-Memoria 
+-Comunicación y lenguaje 
+-Capacidad de concentrarse y prestar atencion razonamiento y jucio 
+-Percepción visual 
+
 
 ## **Objetivos** 
 ### Objetivo global 
