@@ -43,6 +43,9 @@ Síntomas:
 - Latido del corazón rápido
 - Náuseas y vomitos
 
+##Demencia 
+La demencia es una enfermedad que se produce por daños a las celulas del cerebro.Esta lesion celular interfiere con la capacidad de las celulas cerebrales para comunicarse entre ellas. Cuando estas mismas no pueden comunicarse con normalidad, el pensamiento, el conportamiento y los sentimientos se ven afectados.
+
 ## **Objetivos** 
 ### Objetivo global 
 El objetivo global de nuestro trabajo es analizar la relacion de antidepresivos/estimulantes con el número de defuncion por enfermedad.
