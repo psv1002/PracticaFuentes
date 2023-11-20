@@ -64,7 +64,7 @@ Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las 
 -Percepción visual 
 
 ## **Importacion de datos**
-```{r}
+```{r eval=FALSE}
 library(rjson)
 library(tidyjson)
 enfermedades <- fromJSON(file ="DATOS/enfermedades.json")
