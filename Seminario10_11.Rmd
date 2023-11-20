@@ -90,3 +90,5 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 https://www.topdoctors.es/diccionario-medico/isquemia
 
 https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq
+
+https://www.alz.org/alzheimer-demencia/que-es-la-demencia#S%C3%ADntomas
