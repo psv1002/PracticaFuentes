@@ -73,13 +73,19 @@ enfermedad_DF <- spread_all(enfermedades)
 medicamentos <- fromJSON(file ="DATOS/medicamentos_comunidad.json")
 medicamentos_DF <- spread_all(medicamentos)
 ```
+```{r}
+library("dplyr")
+summary(medicamentos_DF)
+head(medicamentos_DF)
+View(medicamentos_DF)
+```
 
 ```{r eval=FALSE}
 library(readxl)
-enfermedades2.0 <- read_excel("DATOS/enfermedades.xlsx")
-enfermedad_2 <- spread_all(enfermedades2.0)
-medicamentos2.0 <- read_excel("DATOS/medicamentos_comunidad.xlsx")
-enfermedad_2 <- spread_all(medicamentos_comunidad2.0)
+enfermedades2 <- read_excel("DATOS/enfermedades.xlsx")
+enfermedades2
+medicamentos2 <- read_excel("DATOS/medicamentos_comunidad.xlsx")
+medicamentos2[]
 ```
 
 medicamentos
