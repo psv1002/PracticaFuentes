@@ -65,19 +65,35 @@ Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las 
 
 ## **Importacion de datos**
 ```{r}
+```
+
+
+```{r}
 library(rjson)
 library(tidyjson)
+```
+
+
+```{r}
 enfermedades <- fromJSON(file ="DATOS/enfermedades.json")
 enfermedad_DF <- spread_all(enfermedades)
+```
 
-medicamentos <- fromJSON(file ="DATOS/medicamentos_comunidad.json")
+
+```{r}
+medicamentos <- fromJSON(file ="DATOS/medicamentos_consumidos.json")
 medicamentos_DF <- spread_all(medicamentos)
+medicamentos_DF[[3]][[779]]$Data
+```
+
+
+```{r}
 ```
 ```{r}
 library("dplyr")
 summary(medicamentos_DF)
 head(medicamentos_DF)
-View(medicamentos_DF)
+
 ```
 
 ```{r eval=FALSE}
