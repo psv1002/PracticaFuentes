@@ -88,20 +88,24 @@ medicamentos_DF[[3]][[779]]$Data
 
 
 ```{r}
-```
-```{r}
 library("dplyr")
 summary(medicamentos_DF)
 head(medicamentos_DF)
 
 ```
 
+
+
 ```{r eval=FALSE}
 library(readxl)
 enfermedades2 <- read_excel("DATOS/enfermedades.xlsx")
 enfermedades2
-medicamentos2 <- read_excel("DATOS/medicamentos_comunidad.xlsx")
-medicamentos2[]
+```
+
+
+```{r eval=FALSE}
+medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
+medicamentos2
 ```
 
 medicamentos
