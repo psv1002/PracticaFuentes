@@ -121,8 +121,9 @@ enfermedades2
 
 ```{r eval=FALSE}
 #install.packages("dplyr", dependencies = TRUE)
-library(dplyr)
-library(tidyverse)
+#library(dplyr)
+#library(tidyverse)
+library(readxl)
 medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
 #View(medicamentos2)
 
