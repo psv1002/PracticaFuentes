@@ -32,7 +32,6 @@ Nuestros datos han sido extraídos desde www.datos.gob en formato .json:
 
 ## **Medicamentos y enfermedades**
 ### Antidepresivos/estimulantes
-### Demencia
 ### Cáncer de páncreas
 El cáncer de páncreas se produce por la formación incontrolada de células malignas cancerosas en los tejidos del páncreas, por lo que las celulas sanas de este, dejan de funcionar correctamente.
 Síntomas:
@@ -55,7 +54,7 @@ Síntomas:
 - Latido del corazón rápido
 - Náuseas y vomitos
 
-##Demencia 
+### Demencia 
 La demencia es una enfermedad que se produce por daños a las celulas del cerebro.Esta lesión celular interfiere con la capacidad de las células cerebrales para comunicarse entre ellas. Cuando estas mismas no pueden comunicarse con normalidad, el pensamiento, el conportamiento y los sentimientos se ven afectados.
 Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las siguientes funciones mentales basicas:
 -Memoria 
@@ -101,7 +100,6 @@ View(df)
 #medicamentos_DF[[3]][[779]]$Data
 ```
 
-
 ```{r}
 library("dplyr")
 summary(medicamentos_DF)
@@ -109,15 +107,17 @@ head(medicamentos_DF)
 
 ```
 
-
-
 ```{r eval=FALSE}
 library(readxl)
 enfermedades2 <- read_excel("DATOS/enfermedades.xlsx")
-enfermedades2
 ```
 
-
+```{r eval=FALSE}
+enf<-enfermedades2 %>% 
+  rename(Comunidades = `Defunciones según causa de muerte. Avance enero-mayo 2020`, Defunciones = ...2) %>% 
+  slice() %>% 
+  select("Comunidades", "Defunciones")
+```
 
 ```{r eval=FALSE}
 #install.packages("dplyr", dependencies = TRUE)
@@ -125,19 +125,20 @@ enfermedades2
 #library(tidyverse)
 library(readxl)
 medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
-
-
+```
+```{r eval=FALSE}
 MedicamentosAntidepresivos <- medicamentos2%>%
-  rename(.data = ., AntidepresivosSI= ...39,Comuniades= `Asistencia sanitaria: Cifras relativas`)%>%
-  slice(.data = ., 6:29)%>%#solo para ambos sexos
-  select(`Comuniades`,`AntidepresivosSI`)%>%
+  rename(.data = ., AntidepresivosSI= ...39,Comunidades= `Asistencia sanitaria: Cifras relativas`)%>%
+  slice(.data = ., 6:29)%>% #solo para ambos sexos
+  select("Comunidades","AntidepresivosSI")%>%
   drop_na()
-
-View(MedicamentosAntidepresivos)
 
 ```
 
-medicamentos
+```{r}
+union <-left_join(x = MedicamentosAntidepresivos, y = enf, by = c("Comunidades"))
+union
+```
 
 
 ## **Gráficos**
