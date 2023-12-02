@@ -87,7 +87,14 @@ enfermedad_DF <- spread_all(enfermedades)
 ```{r}
 medicamentos <- fromJSON(file ="DATOS/medicamentos_consumidos.json")
 medicamentos_DF <- spread_all(medicamentos)
-medicamentos_DF[[3]][[779]]$Data
+#View(medicamentos_DF)
+df <- medicamentos_DF%>%
+  gather_object%>%
+  selct()
+
+View(df) 
+#medicamentos_DF$Antidepresivos, estimulantes
+#medicamentos_DF[[3]][[779]]$Data
 ```
 
 
@@ -108,8 +115,12 @@ enfermedades2
 
 
 ```{r eval=FALSE}
+install.packages("dplyr", dependencies = TRUE)
+library(dplyr)
 medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
-medicamentos2
+View(medicamentos2)
+#slice_head(.data = medicamentos2, n =10)
+medicamentos2$...38
 ```
 
 medicamentos
