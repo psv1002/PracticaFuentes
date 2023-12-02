@@ -112,11 +112,60 @@ library(readxl)
 enfermedades2 <- read_excel("DATOS/enfermedades.xlsx")
 ```
 
+
+```{r eval=FALSE}
+
+Enfe <- enfermedades2%>%
+  slice(.data = ., 7:nrow(enfermedades2))
+
+
+comunidades =c()
+total = c()
+mujer = c()
+hombre = c()
+  
+for(i in 1:nrow(Enfe)){
+    if(!is.na(Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i]) && Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i] == "Demencia"){
+      
+      comunidades <- append(comunidades,Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i-21])
+      total <- append(total,Enfe$...2[i+1])
+      hombre <- append(hombre,Enfe$...2[i+2])
+      mujer <-append(mujer,Enfe$...2[i+3])
+      
+    }
+
+}
+
+muerteDemencia <- data.frame(
+  Comunidades = comunidades,
+  Total = total,
+  Hombre = hombre,
+  Mujer = mujer
+  
+  
+)
+view(muerteDemencia)
+```
+
+
+
+
+```{r eval=FALSE}
+#view((enfermedades2))
+MuertesAlceimer<-enfermedades2 %>% 
+  rename(Comunidades = `Defunciones según causa de muerte. Avance enero-mayo 2020`, Defunciones = ...2)
+  slice(.data =. ,28:31)
+view(MuertesAlceimer)
+
+```
+
+
 ```{r eval=FALSE}
 enf<-enfermedades2 %>% 
   rename(Comunidades = `Defunciones según causa de muerte. Avance enero-mayo 2020`, Defunciones = ...2) %>% 
-  slice() %>% 
+  slice(.data = ., 28:31) %>% 
   select("Comunidades", "Defunciones")
+view(enf)
 ```
 
 ```{r eval=FALSE}
