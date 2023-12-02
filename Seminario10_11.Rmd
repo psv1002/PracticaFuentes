@@ -64,10 +64,14 @@ Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las 
 -Percepción visual 
 
 ## **Importacion de datos**
+### **Instalacion de liberias**
 ```{r}
+install.packages("rjson")
+install.packages("stats")
+install.packages("tidyjson", dependencies = TRUE)
 ```
 
-
+### **Importacion de librerias**
 ```{r}
 library(rjson)
 library(tidyjson)
