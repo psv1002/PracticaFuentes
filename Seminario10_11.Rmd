@@ -125,13 +125,15 @@ enfermedades2
 #library(tidyverse)
 library(readxl)
 medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
-#View(medicamentos2)
 
-antidepre <- medicamentos2%>%
-  select(`Asistencia sanitaria: Cifras relativas`,...38:...40)
-  
 
-antidepre
+MedicamentosAntidepresivos <- medicamentos2%>%
+  rename(.data = ., AntidepresivosSI= ...39,Comuniades= `Asistencia sanitaria: Cifras relativas`)%>%
+  slice(.data = ., 6:29)%>%#solo para ambos sexos
+  select(`Comuniades`,`AntidepresivosSI`)%>%
+  drop_na()
+
+View(MedicamentosAntidepresivos)
 
 ```
 
