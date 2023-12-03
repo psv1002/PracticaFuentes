@@ -72,8 +72,8 @@ install.packages("tidyjson", dependencies = TRUE)
 
 ### **Importacion de librerias**
 ```{r}
-library(rjson)
-library(tidyjson)
+#library(rjson)
+#library(tidyjson)
 library(dplyr)
 library(tidyverse)
 library(conflicted)
@@ -101,15 +101,10 @@ df <- medicamentos_DF%>%
 #medicamentos_DF[[3]][[779]]$Data
 ```
 
-
-```{r}
-```
-
 ```{r}
 library("dplyr")
 summary(medicamentos_DF)
 head(medicamentos_DF)
-
 ```
 
 IMPORTACION DE DATOS EN EXCEL
@@ -186,8 +181,8 @@ for(i in 1:nrow(MedicamentosAntidepresivos)){
 # Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
 # Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
 
-union <-full_join(x = MedicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades"))
-view(union)
+union <-full_join(x = MedicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
+  arrange(.data = ., Total, AntidepresivosSI)
 ```
 
 
@@ -200,8 +195,9 @@ library(tidyverse)
 
 
 ```{r eval=FALSE}
-grafico_MuertesDemencia <- ggplot(data = mpg, aes(x = union, y = nrow(union))) +
-  geom_point(colour = "red")
+grafico_MuertesDemencia <- ggplot(data = union, aes(x = AntidepresivosSI, y = Total)) +
+  geom_bar(stat = "identity")+
+  labs(x = "Porcentaje de antidepresivos consumidos", y = "Nº de defunciones por demencia", subtitle = "Relación de antidepresivos con muertes por demencia")
 
 grafico_MuertesDemencia
 ```
