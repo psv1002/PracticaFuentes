@@ -74,9 +74,9 @@ install.packages("tidyjson", dependencies = TRUE)
 ```{r}
 library(rjson)
 library(tidyjson)
-#library(dplyr)
-#library(tidyverse)
-#library(conflicted)
+library(dplyr)
+library(tidyverse)
+library(conflicted)
 ```
 
 INTENTO DE IMPORTACION DE DATOS EN JSON
@@ -166,15 +166,29 @@ muerteIsquemia <- data.frame(
 muerteIsquemia
 ```
 
+```{r}
+
+medicamentosAntidepresivos<- data.frame(
+  select(.data = medicamentos2,`Asistencia sanitaria: Cifras relativas`)%>%slice(9:28)%>%rename(Comunidades = `Asistencia sanitaria: Cifras relativas`),
+  select(.data = medicamentos2,...39)%>%slice(9:28)%>%rename(Total =...39),
+  select(.data = medicamentos2,...39)%>%slice(31:50)%>%rename(Hombre =...39),
+  select(.data = medicamentos2,...39)%>%slice(52:71)%>%rename(Mujer =...39)
+)
+
+view(medicamentosAntidepresivos)
+
+```
 
 Modificamos la tabla medicamentos2
 ```{r eval=FALSE}
+view(medicamentos2)
 MedicamentosAntidepresivos <- medicamentos2%>%
   rename(.data = ., AntidepresivosSI= ...39,Comunidades= `Asistencia sanitaria: Cifras relativas`)%>%
   slice(.data = ., 6:29)%>% #solo para ambos sexos
   select("Comunidades","AntidepresivosSI")%>%
   drop_na() %>% 
   mutate(.data = ., AntidepresivosSI = as.double(AntidepresivosSI))
+
 MedicamentosAntidepresivos
 ```
 
