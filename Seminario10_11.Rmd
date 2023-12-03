@@ -176,7 +176,7 @@ MedicamentosAntidepresivos <- medicamentos2%>%
 
 Hacemos el left_join
 ```{r}
-#columna comunidades en las dos tablas iguales para poder realizar el lesft join 
+#columna comunidades en las dos tablas iguales para poder realizar el join 
 for(i in 1:nrow(MedicamentosAntidepresivos)){
   if(MedicamentosAntidepresivos$Comunidades[i] != muerteDemencia$Comunidades[i]){
     MedicamentosAntidepresivos$Comunidades[i]<- muerteDemencia$Comunidades[i]
@@ -187,7 +187,7 @@ for(i in 1:nrow(MedicamentosAntidepresivos)){
 # Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
 
 union <-full_join(x = MedicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades"))
-union
+view(union)
 ```
 
 
