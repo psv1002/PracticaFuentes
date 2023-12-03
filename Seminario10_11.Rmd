@@ -200,7 +200,7 @@ library(tidyverse)
 
 
 ```{r eval=FALSE}
-grafico_MuertesDemencia <- ggplot(data = mpg, aes(x = union)) +
+grafico_MuertesDemencia <- ggplot(data = mpg, aes(x = union, y = nrow(union))) +
   geom_point(colour = "red")
 
 grafico_MuertesDemencia
