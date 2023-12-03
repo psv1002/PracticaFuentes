@@ -185,21 +185,22 @@ union
 
 
 ## **Gráficos**
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
+### **Importación de liberias**
+```{r eval=FALSE}
 library(ggplot2)
 library(tidyverse)
+```
 
+
+```{r eval=FALSE}
 ggplot(data = mpg, aes(x = , y = )) +
   geom_point(colour = "red")
   geom_smooth()
-
-  
-plot(pressure)
 ```
 
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 ## **Bibliografia**
