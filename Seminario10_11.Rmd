@@ -189,6 +189,14 @@ union
 You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
+library(ggplot2)
+library(tidyverse)
+
+ggplot(data = mpg, aes(x = , y = )) +
+  geom_point(colour = "red")
+  geom_smooth()
+
+  
 plot(pressure)
 ```
 
