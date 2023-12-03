@@ -72,11 +72,11 @@ install.packages("tidyjson", dependencies = TRUE)
 
 ### **Importacion de librerias**
 ```{r}
-#library(rjson)
-#library(tidyjson)
-library(dplyr)
-library(tidyverse)
-library(conflicted)
+library(rjson)
+library(tidyjson)
+#library(dplyr)
+#library(tidyverse)
+#library(conflicted)
 ```
 
 INTENTO DE IMPORTACION DE DATOS EN JSON
@@ -144,7 +144,7 @@ for(i in 1:nrow(Enfe)){
       total <- append(total,Enfe$...2[i+1])
       hombre <- append(hombre,Enfe$...2[i+2])
       mujer <-append(mujer,Enfe$...2[i+3])
-    }
+  }
 }
 ```
 
@@ -152,10 +152,18 @@ for(i in 1:nrow(Enfe)){
 # Creamos un dataframe con los vectores creados anteriormente
 muerteDemencia <- data.frame(
   Comunidades = comunidades,
-  Total = total,
-  Hombre = hombre,
-  Mujer = mujer)
+  Total = as.integer(total),
+  Hombre = as.integer(hombre),
+  Mujer = as.integer(mujer))
 muerteDemencia
+```
+```{r}
+muerteIsquemia <- data.frame(
+  Comunidades = comunidadesI,
+  Total = as.integer(totalI),
+  Hombre = as.integer(hombreI),
+  Mujer = as.integer(mujerI))
+muerteIsquemia
 ```
 
 
@@ -165,7 +173,9 @@ MedicamentosAntidepresivos <- medicamentos2%>%
   rename(.data = ., AntidepresivosSI= ...39,Comunidades= `Asistencia sanitaria: Cifras relativas`)%>%
   slice(.data = ., 6:29)%>% #solo para ambos sexos
   select("Comunidades","AntidepresivosSI")%>%
-  drop_na()
+  drop_na() %>% 
+  mutate(.data = ., AntidepresivosSI = as.double(AntidepresivosSI))
+MedicamentosAntidepresivos
 ```
 
 
@@ -187,7 +197,7 @@ union <-full_join(x = MedicamentosAntidepresivos, y = muerteDemencia, by = c("Co
 
 
 ## **Gráficos**
-### **Importación de liberias**
+### **Importación de librerias**
 ```{r eval=FALSE}
 library(ggplot2)
 library(tidyverse)
@@ -196,7 +206,7 @@ library(tidyverse)
 
 ```{r eval=FALSE}
 grafico_MuertesDemencia <- ggplot(data = union, aes(x = AntidepresivosSI, y = Total)) +
-  geom_bar(stat = "identity")+
+  geom_point(aes(colour = Comunidades))+
   labs(x = "Porcentaje de antidepresivos consumidos", y = "Nº de defunciones por demencia", subtitle = "Relación de antidepresivos con muertes por demencia")
 
 grafico_MuertesDemencia
