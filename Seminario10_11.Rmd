@@ -93,9 +93,16 @@ medicamentos_DF <- spread_all(medicamentos)
 df <- medicamentos_DF%>%
   gather_object%>%
   select()
+```
 
+
+```{r}
 #medicamentos_DF$Antidepresivos, estimulantes
 #medicamentos_DF[[3]][[779]]$Data
+```
+
+
+```{r}
 ```
 
 ```{r}
@@ -117,7 +124,15 @@ Modificamos primero la tabla enfermedades 2
 # Creamos una tabla Enfe igual que la tabla inicial pero a partir de la fila 7
 Enfe <- enfermedades2%>%
   slice(.data = ., 7:nrow(enfermedades2))
-  
+```
+
+
+```{r eval=FALSE}
+head(Enfe)
+```
+
+
+```{r eval=FALSE}
 ```
 
 ```{r eval=FALSE}
@@ -148,7 +163,7 @@ muerteDemencia <- data.frame(
   Total = total,
   Hombre = hombre,
   Mujer = mujer)
-
+muerteDemencia
 ```
 
 Creo que hay que borrarlo
@@ -193,9 +208,10 @@ library(tidyverse)
 
 
 ```{r eval=FALSE}
-ggplot(data = mpg, aes(x = , y = )) +
+grafico_MuertesDemencia <- ggplot(data = mpg, aes(x = union)) +
   geom_point(colour = "red")
-  geom_smooth()
+
+grafico_MuertesDemencia
 ```
 
 ```{r pressure, echo=FALSE}
