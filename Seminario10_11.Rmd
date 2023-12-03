@@ -75,16 +75,15 @@ install.packages("tidyjson", dependencies = TRUE)
 library(rjson)
 library(tidyjson)
 library(dplyr)
+library(tidyverse)
+library(conflicted)
 ```
 
-
+INTENTO DE IMPORTACION DE DATOS EN JSON
 ```{r}
-library(tidyverse)
-library(rjson)
 enfermedades <- fromJSON(file ="DATOS/enfermedades.json")
 enfermedad_DF <- spread_all(enfermedades)
 ```
-
 
 ```{r}
 library(dplyr)
@@ -95,7 +94,6 @@ df <- medicamentos_DF%>%
   gather_object%>%
   select()
 
-View(df) 
 #medicamentos_DF$Antidepresivos, estimulantes
 #medicamentos_DF[[3]][[779]]$Data
 ```
@@ -107,85 +105,81 @@ head(medicamentos_DF)
 
 ```
 
+IMPORTACION DE DATOS EN EXCEL
 ```{r eval=FALSE}
 library(readxl)
 enfermedades2 <- read_excel("DATOS/enfermedades.xlsx")
+medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
 ```
 
-
+Modificamos primero la tabla enfermedades 2
 ```{r eval=FALSE}
-
+# Creamos una tabla Enfe igual que la tabla inicial pero a partir de la fila 7
 Enfe <- enfermedades2%>%
   slice(.data = ., 7:nrow(enfermedades2))
+  
+```
 
-
+```{r eval=FALSE}
+# Creamos 4 vectores vacios
 comunidades =c()
 total = c()
 mujer = c()
 hombre = c()
-  
+
+# Recorremos la tabla Enfe entera y se accede a cada fila en la que ponga "Demencia"
+# Añadimos al vector vacio "comunidades" las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila "Demencia"
+# Añadimos a los demas vectores los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes que la fila de "Demencia"
+
 for(i in 1:nrow(Enfe)){
     if(!is.na(Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i]) && Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i] == "Demencia"){
-      
       comunidades <- append(comunidades,Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i-21])
       total <- append(total,Enfe$...2[i+1])
       hombre <- append(hombre,Enfe$...2[i+2])
       mujer <-append(mujer,Enfe$...2[i+3])
-      
     }
-
 }
+```
 
+```{r eval=FALSE}
+# Creamos un dataframe con los vectores creados anteriormente
 muerteDemencia <- data.frame(
   Comunidades = comunidades,
   Total = total,
   Hombre = hombre,
-  Mujer = mujer
-  
-  
-)
-view(muerteDemencia)
+  Mujer = mujer)
+
 ```
 
-
-
-
+Creo que hay que borrarlo
 ```{r eval=FALSE}
-#view((enfermedades2))
 MuertesAlceimer<-enfermedades2 %>% 
-  rename(Comunidades = `Defunciones según causa de muerte. Avance enero-mayo 2020`, Defunciones = ...2)
+  rename(Comunidades = `Defunciones según causa de muerte. Avance enero-mayo 2020`, Defunciones = ...2) %>% 
   slice(.data =. ,28:31)
-view(MuertesAlceimer)
-
 ```
 
-
+Creo que hay que borrarlo
 ```{r eval=FALSE}
 enf<-enfermedades2 %>% 
   rename(Comunidades = `Defunciones según causa de muerte. Avance enero-mayo 2020`, Defunciones = ...2) %>% 
   slice(.data = ., 28:31) %>% 
   select("Comunidades", "Defunciones")
-view(enf)
 ```
 
-```{r eval=FALSE}
-#install.packages("dplyr", dependencies = TRUE)
-#library(dplyr)
-#library(tidyverse)
-library(readxl)
-medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
-```
+Modificamos la tabla medicamentos2
 ```{r eval=FALSE}
 MedicamentosAntidepresivos <- medicamentos2%>%
   rename(.data = ., AntidepresivosSI= ...39,Comunidades= `Asistencia sanitaria: Cifras relativas`)%>%
   slice(.data = ., 6:29)%>% #solo para ambos sexos
   select("Comunidades","AntidepresivosSI")%>%
   drop_na()
-
 ```
 
+Hacemos el left_join
 ```{r}
-union <-left_join(x = MedicamentosAntidepresivos, y = enf, by = c("Comunidades"))
+# Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
+# Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
+union <-full_join(x = MedicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades"))
 union
 ```
 
