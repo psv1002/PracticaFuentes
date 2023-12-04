@@ -16,9 +16,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## **Introduccion**
+## Introduccion
 
-## **Objetivos** 
+## Objetivos
 ### Objetivo global 
 El objetivo global de nuestro trabajo es analizar la relacion de antidepresivos/estimulantes con el número de defuncion por enfermedad.
 Nuestros datos han sido extraídos desde www.datos.gob en formato .json:
@@ -30,7 +30,7 @@ Nuestros datos han sido extraídos desde www.datos.gob en formato .json:
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por cáncer de páncreas
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por enfermedades isquémicas
 
-## **Medicamentos y enfermedades**
+## Medicamentos y enfermedades
 ### Antidepresivos/estimulantes
 ### Cáncer de páncreas
 El cáncer de páncreas se produce por la formación incontrolada de células malignas cancerosas en los tejidos del páncreas, por lo que las celulas sanas de este, dejan de funcionar correctamente.
@@ -62,15 +62,15 @@ Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las 
 -Capacidad de concentrarse y prestar atencion razonamiento y jucio 
 -Percepción visual 
 
-## **Importacion de datos**
-### **Instalacion de liberias**
+## Importacion de datos
+### Instalacion de liberias
 ```{r}
 install.packages("rjson")
 install.packages("stats")
 install.packages("tidyjson", dependencies = TRUE)
 ```
 
-### **Importacion de librerias**
+### Importacion de librerias
 ```{r}
 library(rjson)
 library(tidyjson)
@@ -89,16 +89,10 @@ enfermedad_DF <- spread_all(enfermedades)
 library(dplyr)
 medicamentos <- fromJSON(file ="DATOS/medicamentos_consumidos.json")
 medicamentos_DF <- spread_all(medicamentos)
-#View(medicamentos_DF)
+
 df <- medicamentos_DF%>%
   gather_object%>%
   select()
-```
-
-
-```{r}
-#medicamentos_DF$Antidepresivos, estimulantes
-#medicamentos_DF[[3]][[779]]$Data
 ```
 
 ```{r}
@@ -218,7 +212,7 @@ medicamentosAntidepresivos<-medicamentosAntidepresivos %>%
   mutate(TotalAntidepresivos = as.double(TotalAntidepresivos)) %>% 
   mutate(HombreAntidepresivos = as.double(HombreAntidepresivos)) %>% 
   mutate(MujerAntidepresivos = as.double(MujerAntidepresivos))
-view(medicamentosAntidepresivos)
+
 
 ```
 
@@ -277,15 +271,27 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 unionIS <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalIsquemia, TotalAntidepresivos)
 
+#Pruebas
+unionIS1<-unionIS%>% 
+  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreIsquemia:MujerIsquemia))
+unionIS1
+
+unionIS2<-unionIS%>% 
+  pivot_longer(names_to = "Sexo2", values_to = "Valores2", cols = c(HombreAntidepresivos:MujerAntidepresivos))
+unionIS2
+
+#Código original
 unionIS<-unionIS%>% 
   pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
+
+
 ```
 
 
 
 
-## **Gráficos**
-### **Importación de librerias**
+## Gráficos
+### Importación de librerias
 ```{r eval=FALSE}
 library(ggplot2)
 library(tidyverse)
@@ -300,12 +306,17 @@ grafico_MuertesDemencia <- ggplot(data = union, aes(x = TotalAntidepresivos, y =
 grafico_MuertesDemencia
 ```
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r eval=FALSE}
+grafico_MuertesIsquemia <- ggplot(data = tablaA, aes(x = AntidepresivosHombreMujer$Valores2  , y = AntidepresivosHombreMujer$TotalAntidepresivos)) +
+  geom_point(aes(colour = factor(DATOOOS$Valores2)))+
+  labs(x = "Porcentaje de antidepresivos consumidos por hombre y mujer", y = "Nº de defunciones por isquemia en hombres y mujeres", subtitle = "Relación de antidepresivos con muertes por isquemia")
+
+grafico_MuertesIsquemia
+
 ```
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-## **Bibliografia**
+## Bibliografia
 https://www.topdoctors.es/diccionario-medico/isquemia
 
 https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq
