@@ -253,10 +253,10 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 # Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
 # Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
 
-union <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, by = c("Comunidades")) %>%
+unionCP <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, by = c("Comunidades")) %>%
   arrange(.data = ., TotalCancerPancreas, TotalAntidepresivos)
 
-union<-union %>% 
+unionCP<-unionCP%>% 
   pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos,HombreCancerPancreas:MujerCancerPancreas))
 ```
 
