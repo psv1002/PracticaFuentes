@@ -263,6 +263,25 @@ unionCP<-unionCP%>%
 ```
 
 
+```{r}
+#columna comunidades en las dos tablas iguales para poder realizar el join 
+for(i in 1:nrow(medicamentosAntidepresivos)){
+  if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
+    medicamentosAntidepresivos$Comunidades[i]<- muerteIsquemia$Comunidades[i]
+  }
+}
+
+# Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
+# Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
+
+unionIS <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
+  arrange(.data = ., TotalIsquemia, TotalAntidepresivos)
+
+unionIS<-unionIS%>% 
+  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos,HombreIsquemia:MujerIsquemia))
+```
+
+
 
 
 ## **Gráficos**
