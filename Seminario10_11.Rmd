@@ -165,10 +165,13 @@ Modificamos la tabla medicamentos2
 medicamentosAntidepresivos<- data.frame(
   select(.data = medicamentos2,`Asistencia sanitaria: Cifras relativas`)%>%slice(9:28)%>%rename(Comunidades = `Asistencia sanitaria: Cifras relativas`),
   select(.data = medicamentos2,...39)%>%slice(9:28)%>%rename(TotalAntidepresivos =...39),
-  select(.data = medicamentos2,...39)%>%slice(31:50)%>%rename(HombreAntidepresivos =...39),
-  select(.data = medicamentos2,...39)%>%slice(52:71)%>%rename(MujerAntidepresivos =...39)
+  select(.data = medicamentos2,...39)%>%slice(30:49)%>%rename(HombreAntidepresivos =...39),
+  select(.data = medicamentos2,...39)%>%slice(51:70)%>%rename(MujerAntidepresivos =...39)
 )
-
+medicamentosAntidepresivos<-medicamentosAntidepresivos %>% 
+  mutate(TotalAntidepresivos = as.double(TotalAntidepresivos)) %>% 
+  mutate(HombreAntidepresivos = as.double(HombreAntidepresivos)) %>% 
+  mutate(MujerAntidepresivos = as.double(MujerAntidepresivos))
 view(medicamentosAntidepresivos)
 
 ```
@@ -187,9 +190,10 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 # Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
 
 union <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
-  arrange(.data = ., Total)
+  arrange(.data = ., TotalDemencia, TotalAntidepresivos)
 
-view(union)
+union<-union %>% 
+  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos,HombreDemencia:MujerDemencia))
 ```
 
 
@@ -202,8 +206,8 @@ library(tidyverse)
 
 
 ```{r eval=FALSE}
-grafico_MuertesDemencia <- ggplot(data = union, aes(x = AntidepresivosSI, y = Total)) +
-  geom_point(aes(colour = Comunidades))+
+grafico_MuertesDemencia <- ggplot(data = union, aes(x = TotalAntidepresivos, y = TotalDemencia)) +
+  geom_point()+
   labs(x = "Porcentaje de antidepresivos consumidos", y = "Nº de defunciones por demencia", subtitle = "Relación de antidepresivos con muertes por demencia")
 
 grafico_MuertesDemencia
