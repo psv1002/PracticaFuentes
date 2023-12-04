@@ -152,53 +152,44 @@ for(i in 1:nrow(Enfe)){
 # Creamos un dataframe con los vectores creados anteriormente
 muerteDemencia <- data.frame(
   Comunidades = comunidades,
-  Total = as.integer(total),
-  Hombre = as.integer(hombre),
-  Mujer = as.integer(mujer))
+  TotalDemencia = as.integer(total),
+  HombreDemencia = as.integer(hombre),
+  MujerDemencia = as.integer(mujer))
 muerteDemencia
 ```
 
-```{r}
 
+
+Modificamos la tabla medicamentos2
+```{r eval=FALSE}
 medicamentosAntidepresivos<- data.frame(
   select(.data = medicamentos2,`Asistencia sanitaria: Cifras relativas`)%>%slice(9:28)%>%rename(Comunidades = `Asistencia sanitaria: Cifras relativas`),
-  select(.data = medicamentos2,...39)%>%slice(9:28)%>%rename(Total =...39),
-  select(.data = medicamentos2,...39)%>%slice(31:50)%>%rename(Hombre =...39),
-  select(.data = medicamentos2,...39)%>%slice(52:71)%>%rename(Mujer =...39)
+  select(.data = medicamentos2,...39)%>%slice(9:28)%>%rename(TotalAntidepresivos =...39),
+  select(.data = medicamentos2,...39)%>%slice(31:50)%>%rename(HombreAntidepresivos =...39),
+  select(.data = medicamentos2,...39)%>%slice(52:71)%>%rename(MujerAntidepresivos =...39)
 )
 
 view(medicamentosAntidepresivos)
 
 ```
 
-Modificamos la tabla medicamentos2
-```{r eval=FALSE}
-view(medicamentos2)
-MedicamentosAntidepresivos <- medicamentos2%>%
-  rename(.data = ., AntidepresivosSI= ...39,Comunidades= `Asistencia sanitaria: Cifras relativas`)%>%
-  slice(.data = ., 6:29)%>% #solo para ambos sexos
-  select("Comunidades","AntidepresivosSI")%>%
-  drop_na() %>% 
-  mutate(.data = ., AntidepresivosSI = as.double(AntidepresivosSI))
-
-MedicamentosAntidepresivos
-```
-
 
 Hacemos el left_join
 ```{r}
 #columna comunidades en las dos tablas iguales para poder realizar el join 
-for(i in 1:nrow(MedicamentosAntidepresivos)){
-  if(MedicamentosAntidepresivos$Comunidades[i] != muerteDemencia$Comunidades[i]){
-    MedicamentosAntidepresivos$Comunidades[i]<- muerteDemencia$Comunidades[i]
+for(i in 1:nrow(medicamentosAntidepresivos)){
+  if(medicamentosAntidepresivos$Comunidades[i] != muerteDemencia$Comunidades[i]){
+    medicamentosAntidepresivos$Comunidades[i]<- muerteDemencia$Comunidades[i]
   }
 }
 
 # Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
 # Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
 
-union <-full_join(x = MedicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
-  arrange(.data = ., Total, AntidepresivosSI)
+union <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
+  arrange(.data = ., Total)
+
+view(union)
 ```
 
 
