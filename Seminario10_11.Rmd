@@ -240,7 +240,7 @@ union <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Co
   arrange(.data = ., TotalDemencia, TotalAntidepresivos)
 
 union<-union %>% 
-  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos,HombreDemencia:MujerDemencia))
+  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
 ```
 
 Medicamentos antidepresivos con muertes por cancer de pancreas 
@@ -259,7 +259,7 @@ unionCP <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, by
   arrange(.data = ., TotalCancerPancreas, TotalAntidepresivos)
 
 unionCP<-unionCP%>% 
-  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos,HombreCancerPancreas:MujerCancerPancreas))
+  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
 ```
 
 
@@ -278,7 +278,7 @@ unionIS <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("
   arrange(.data = ., TotalIsquemia, TotalAntidepresivos)
 
 unionIS<-unionIS%>% 
-  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos,HombreIsquemia:MujerIsquemia))
+  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
 ```
 
 
