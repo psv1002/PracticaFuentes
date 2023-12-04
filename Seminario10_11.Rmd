@@ -224,6 +224,7 @@ view(medicamentosAntidepresivos)
 
 
 Hacemos el left_join
+Medicamentos antidepresivos con muertes por demencia 
 ```{r}
 #columna comunidades en las dos tablas iguales para poder realizar el join 
 for(i in 1:nrow(medicamentosAntidepresivos)){
@@ -242,6 +243,7 @@ union<-union %>%
   pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos,HombreDemencia:MujerDemencia))
 ```
 
+Medicamentos antidepresivos con muertes por cancer de pancreas 
 ```{r}
 #columna comunidades en las dos tablas iguales para poder realizar el join 
 for(i in 1:nrow(medicamentosAntidepresivos)){
