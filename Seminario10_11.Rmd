@@ -146,9 +146,7 @@ for(i in 1:nrow(Enfe)){
       mujer <-append(mujer,Enfe$...2[i+3])
   }
 }
-```
 
-```{r eval=FALSE}
 # Creamos un dataframe con los vectores creados anteriormente
 muerteDemencia <- data.frame(
   Comunidades = comunidades,
@@ -156,6 +154,28 @@ muerteDemencia <- data.frame(
   HombreDemencia = as.integer(hombre),
   MujerDemencia = as.integer(mujer))
 muerteDemencia
+```
+
+```{r eval=FALSE}
+totalCP = c()
+mujerCP = c()
+hombreCP = c()
+
+for(i in 1:nrow(Enfe)){
+    if(!is.na(Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i]) && Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i] == "Cáncer de páncreas"){
+      totalCP <- append(totalCP,Enfe$...2[i+1])
+      hombreCP <- append(hombreCP,Enfe$...2[i+2])
+      mujerCP <-append(mujerCP,Enfe$...2[i+3])
+  }
+}
+
+muerteCancerPancreas <- data.frame(
+  Comunidades = comunidades,
+  TotalCancerPancreas = as.integer(totalCP),
+  HombreCancerPancreas = as.integer(hombreCP),
+  MujerCancerPancreas = as.integer(mujerCP))
+muerteCancerPancreas
+
 ```
 
 
@@ -195,6 +215,26 @@ union <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Co
 union<-union %>% 
   pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos,HombreDemencia:MujerDemencia))
 ```
+
+```{r}
+#columna comunidades en las dos tablas iguales para poder realizar el join 
+for(i in 1:nrow(medicamentosAntidepresivos)){
+  if(medicamentosAntidepresivos$Comunidades[i] != muerteCancerPancreas$Comunidades[i]){
+    medicamentosAntidepresivos$Comunidades[i]<- muerteCancerPancreas$Comunidades[i]
+  }
+}
+
+# Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
+# Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
+
+union <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, by = c("Comunidades")) %>%
+  arrange(.data = ., TotalCancerPancreas, TotalAntidepresivos)
+
+union<-union %>% 
+  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos,HombreCancerPancreas:MujerCancerPancreas))
+```
+
+
 
 
 ## **Gráficos**
