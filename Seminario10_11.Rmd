@@ -175,6 +175,32 @@ muerteCancerPancreas <- data.frame(
   HombreCancerPancreas = as.integer(hombreCP),
   MujerCancerPancreas = as.integer(mujerCP))
 muerteCancerPancreas
+```
+
+
+```{r eval=FALSE}
+# Creamos 4 vectores vacios
+total_isq = c()
+mujer_isq = c()
+hombre_isq = c()
+
+for(i in 1:nrow(Enfe)){
+    if(!is.na(Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i]) && Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i] == "Enfermedades isquémicas del corazón"){
+      total_isq <- append(total_isq,Enfe$...2[i+1])
+      hombre_isq <- append(hombre_isq,Enfe$...2[i+2])
+      mujer_isq <-append(mujer_isq,Enfe$...2[i+3])
+  }
+}
+
+# Creamos un dataframe con los vectores creados anteriormente
+muerteIsquemia <- data.frame(
+  Comunidades = comunidades,
+  TotalIsquemia = as.integer(total_isq),
+  HombreIsquemia = as.integer(hombre_isq),
+  MujerIsquemia = as.integer(mujer_isq))
+muerteIsquemia
+
+
 
 ```
 
