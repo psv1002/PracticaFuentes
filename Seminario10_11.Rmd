@@ -157,14 +157,6 @@ muerteDemencia <- data.frame(
   Mujer = as.integer(mujer))
 muerteDemencia
 ```
-```{r}
-muerteIsquemia <- data.frame(
-  Comunidades = comunidadesI,
-  Total = as.integer(totalI),
-  Hombre = as.integer(hombreI),
-  Mujer = as.integer(mujerI))
-muerteIsquemia
-```
 
 
 Modificamos la tabla medicamentos2
