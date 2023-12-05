@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Objetivos
 ### Objetivo global 
 El objetivo global de nuestro trabajo es analizar la relacion de antidepresivos/estimulantes con el número de defuncion por enfermedad.
-Nuestros datos han sido extraídos desde www.datos.gob en formato .json:
+Nuestros datos han sido extraídos desde [Datos.gob](https://datos.gob.es/es/catalogo) en formato .json:
 - Número de defunciones por enfermedad según sexo y comunidad autónoma.
 - Porcentaje de medicamentos consumidos según sexo y comunidad autónoma.
 
@@ -361,10 +361,10 @@ grafico_MuertesIsquemia
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 ## Bibliografia
-https://www.topdoctors.es/diccionario-medico/isquemia
+[InformaciónIsquemia](https://www.topdoctors.es/diccionario-medico/isquemia)
 
-https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq
+[InformaciónCancerPáncreas](https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq)
 
-https://www.alz.org/alzheimer-demencia/que-es-la-demencia#S%C3%ADntomas
+[InformaciónDemencia](https://www.alz.org/alzheimer-demencia/que-es-la-demencia#S%C3%ADntomas)
 
-https://www.ine.es/daco/daco42/ecp/ecp0323.pdf
+[PoblaciónEspaña2020](https://www.ine.es/daco/daco42/ecp/ecp0323.pdf)
