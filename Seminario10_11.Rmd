@@ -72,11 +72,11 @@ install.packages("tidyjson", dependencies = TRUE)
 
 ### Importacion de librerias
 ```{r}
+library(conflicted)
 library(rjson)
 library(tidyjson)
 library(dplyr)
 library(tidyverse)
-library(conflicted)
 ```
 
 INTENTO DE IMPORTACION DE DATOS EN JSON
@@ -231,37 +231,22 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 
 # Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
 # Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
-
+poblacionEspaña2020<-47329981
 union <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalDemencia, TotalAntidepresivos)%>%#codigo nuevo Aitna apartir de aqui, antes hace el full join 
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
-            Demencia = c(sum(HombreDemencia), sum(MujerDemencia), sum(TotalDemencia)),
-            Antidepresivos = c(sum(HombreAntidepresivos), sum(MujerAntidepresivos), sum(TotalAntidepresivos)))%>%
+            Demencia = c(sum(HombreDemencia)*100/poblacionEspaña2020, sum(MujerDemencia)*100/poblacionEspaña2020, sum(TotalDemencia)*100/poblacionEspaña2020),
+            Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "condicion", values_to = "valores", cols = (Demencia:Antidepresivos))
 union
-ggplot(union, aes(fill = condicion, y=valores, x=Sexo)) + 
+grafica<-ggplot(union, aes(fill = condicion, y=valores, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
+grafica+facet_grid("condicion", scales = "free_y")
 
 
 #union<-union %>% 
  # pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
 ```
-
-Codigo nuevo grafico
-```{r}
-unionDF<- data.frame( 
-  Sexo = c("Mujer","Hombre"),
-  MuertesDemencia = c(sum(union$MujerDemencia), sum(union$HombreDemencia)),
-  ConsumoAntidepresivos = c(sum(union$MujerAntidepresivos), sum(union$HombreAntidepresivos))
-)
-unionDF<-unionDF %>% 
-  pivot_longer(names_to ="condicion", values_to = "valores", cols = c(MuertesDemencia:ConsumoAntidepresivos))
-
-ggplot(unionDF, aes(fill = condicion, y=valores, x=Sexo)) + 
-    geom_bar(position="dodge", stat="identity")
-```
-
-
 
 Medicamentos antidepresivos con muertes por cancer de pancreas 
 ```{r}
@@ -348,3 +333,5 @@ https://www.topdoctors.es/diccionario-medico/isquemia
 https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq
 
 https://www.alz.org/alzheimer-demencia/que-es-la-demencia#S%C3%ADntomas
+
+https://www.ine.es/daco/daco42/ecp/ecp0323.pdf
