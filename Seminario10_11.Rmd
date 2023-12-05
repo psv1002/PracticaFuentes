@@ -237,11 +237,11 @@ union <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Co
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
             Demencia = c(sum(HombreDemencia)*100/poblacionEspaña2020, sum(MujerDemencia)*100/poblacionEspaña2020, sum(TotalDemencia)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
-  pivot_longer(names_to = "condicion", values_to = "valores", cols = (Demencia:Antidepresivos))
+  pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Demencia:Antidepresivos))
 union
-grafica<-ggplot(union, aes(fill = condicion, y=valores, x=Sexo)) + 
+grafica<-ggplot(union, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
-grafica+facet_grid("condicion", scales = "free_y")
+grafica+facet_grid("Variables", scales = "free_y")
 
 
 #union<-union %>% 
