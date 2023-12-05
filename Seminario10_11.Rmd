@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Objetivo global 
 El objetivo global de nuestro trabajo es analizar la relacion de antidepresivos/estimulantes con el número de defuncion por enfermedad.
 Nuestros datos han sido extraídos desde www.datos.gob en formato .json:
-- Numero de defunciones por enfermedad según sexo y comunidad autónoma.
+- Número de defunciones por enfermedad según sexo y comunidad autónoma.
 - Porcentaje de medicamentos consumidos según sexo y comunidad autónoma.
 
 ### Objetivos especificos
@@ -86,7 +86,6 @@ enfermedad_DF <- spread_all(enfermedades)
 ```
 
 ```{r}
-library(dplyr)
 medicamentos <- fromJSON(file ="DATOS/medicamentos_consumidos.json")
 medicamentos_DF <- spread_all(medicamentos)
 
@@ -96,7 +95,6 @@ df <- medicamentos_DF%>%
 ```
 
 ```{r}
-library("dplyr")
 summary(medicamentos_DF)
 head(medicamentos_DF)
 ```
@@ -110,27 +108,27 @@ medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
 
 Modificamos primero la tabla enfermedades 2
 ```{r eval=FALSE}
-# Creamos una tabla Enfe igual que la tabla inicial pero a partir de la fila 7
+# Creamos una tabla llamada Enfe igual que la tabla inicial Enfermedades2 pero a partir de la fila 7 para quedarnos con los datos que nos interesan
 Enfe <- enfermedades2%>%
   slice(.data = ., 7:nrow(enfermedades2))
 ```
 
 
 ```{r eval=FALSE}
+summary(Enfe)
 head(Enfe)
 ```
 
 Tabla: muertes por demencia en todas las comunidades(total, hombre y mujer)
 ```{r eval=FALSE}
-# Creamos 4 vectores vacios
+# Primero creamos 4 vectores vacíos
 comunidades =c()
 total = c()
 mujer = c()
 hombre = c()
 
-# Recorremos la tabla Enfe entera y se accede a cada fila en la que ponga "Demencia"
-# Añadimos al vector vacio "comunidades" las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila "Demencia"
-# Añadimos a los demas vectores los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes que la fila de "Demencia"
+# Después vamos recorriendo la tabla Enfe y vamos accediendo a las filas en las que ponga "Demencia", tras esto añadimos al vector vacío llamado "comunidades" las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila "Demencia".
+# A continuación añadimos a los vectores total, mujer y hombre los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes a la fila de "Demencia"
 
 for(i in 1:nrow(Enfe)){
     if(!is.na(Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i]) && Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i] == "Demencia"){
@@ -141,7 +139,7 @@ for(i in 1:nrow(Enfe)){
   }
 }
 
-# Creamos un dataframe con los vectores creados anteriormente
+# Creamos un dataframe llamado muerteDemencia con los vectores creados anteriormente
 muerteDemencia <- data.frame(
   Comunidades = comunidades,
   TotalDemencia = as.integer(total),
@@ -195,8 +193,6 @@ muerteIsquemia <- data.frame(
   MujerIsquemia = as.integer(mujer_isq))
 muerteIsquemia
 
-
-
 ```
 
 
@@ -215,7 +211,7 @@ medicamentosAntidepresivos<-medicamentosAntidepresivos %>%
   mutate(HombreAntidepresivos = as.double(HombreAntidepresivos)) %>% 
   mutate(MujerAntidepresivos = as.double(MujerAntidepresivos))
 
-
+medicamentosAntidepresivos
 ```
 
 
@@ -282,21 +278,39 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 unionIS <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalIsquemia, TotalAntidepresivos)
 
-#Pruebas
-unionIS1<-unionIS%>% 
-  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreIsquemia:MujerIsquemia))
-unionIS1
-
-unionIS2<-unionIS%>% 
-  pivot_longer(names_to = "Sexo2", values_to = "Valores2", cols = c(HombreAntidepresivos:MujerAntidepresivos))
-unionIS2
-
 #Código original
 unionIS<-unionIS%>% 
   pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
 
 
 ```
+
+Hacemos el left_join
+Medicamentos antidepresivos con muertes por demencia 
+```{r}
+#columna comunidades en las dos tablas iguales para poder realizar el join 
+for(i in 1:nrow(medicamentosAntidepresivos)){
+  if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
+    medicamentosAntidepresivos$Comunidades[i]<- muerteIsquemia$Comunidades[i]
+  }
+}
+
+# Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
+# Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
+poblacionEspaña2020<-47329981
+unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
+  arrange(.data = ., TotalIsquemia, TotalAntidepresivos)%>%#codigo nuevo Aitna apartir de aqui, antes hace el full join 
+  summarise(Sexo = c("Hombres", "Mujeres", "Total"),
+            Isquemia = c(sum(HombreIsquemia)*100/poblacionEspaña2020, sum(MujerIsquemia)*100/poblacionEspaña2020, sum(TotalIsquemia)*100/poblacionEspaña2020),
+            Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
+  pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Isquemia:Antidepresivos))
+unionIsq
+grafica<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
+    geom_bar(position="dodge", stat="identity")
+grafica+facet_grid("Variables", scales = "free_y")
+
+```
+
 
 
 
