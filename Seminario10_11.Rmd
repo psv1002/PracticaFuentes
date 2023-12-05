@@ -244,6 +244,19 @@ union
  # pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
 ```
 
+Codigo nuevo grafico
+```{r}
+unionDF<- data.frame( 
+  Sexo = c("Mujer","Hombre"),
+  MuertesDemencia = c(sum(union$MujerDemencia), sum(union$HombreDemencia)),
+  ConsumoAntidepresivos = c(sum(union$MujerAntidepresivos), sum(union$HombreAntidepresivos))
+)
+unionDF<-unionDF %>% 
+  pivot_longer(names_to ="condicion", values_to = "valores", cols = c(MuertesDemencia:ConsumoAntidepresivos))
+
+ggplot(unionDF, aes(fill = condicion, y=valores, x=Sexo)) + 
+    geom_bar(position="dodge", stat="identity")
+```
 
 
 
