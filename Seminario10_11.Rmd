@@ -234,7 +234,7 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 
 union <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalDemencia, TotalAntidepresivos)%>%#codigo nuevo Aitna apartir de aqui, antes hace el full join 
-  summarise(sexo = c("Hombres", "Mujeres", "Total"),
+  summarise(Sexo = c("Hombres", "Mujeres", "Total"),
             Demencia = c(sum(HombreDemencia), sum(MujerDemencia), sum(TotalDemencia)),
             Antidepresivos = c(sum(HombreAntidepresivos), sum(MujerAntidepresivos), sum(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "condicion", values_to = "valores", cols = (Demencia:Antidepresivos))
