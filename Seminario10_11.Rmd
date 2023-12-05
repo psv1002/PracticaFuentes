@@ -228,16 +228,16 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 # Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
 # Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
 poblacionEspaña2020<-47329981
-union <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
+unionDem <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalDemencia, TotalAntidepresivos)%>%#codigo nuevo Aitna apartir de aqui, antes hace el full join 
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
             Demencia = c(sum(HombreDemencia)*100/poblacionEspaña2020, sum(MujerDemencia)*100/poblacionEspaña2020, sum(TotalDemencia)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Demencia:Antidepresivos))
-union
-grafica<-ggplot(union, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
+unionDem
+graficaDem<-ggplot(union, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
-grafica+facet_grid("Variables", scales = "free_y")
+graficaDem+facet_grid("Variables", scales = "free_y")
 
 
 #union<-union %>% 
@@ -267,13 +267,34 @@ unionCP<-unionCP%>%
 ```{r}
 #columna comunidades en las dos tablas iguales para poder realizar el join 
 for(i in 1:nrow(medicamentosAntidepresivos)){
+  if(medicamentosAntidepresivos$Comunidades[i] != muerteCancerPancreas$Comunidades[i]){
+    medicamentosAntidepresivos$Comunidades[i]<- muerteCancerPancreas$Comunidades[i]
+  }
+}
+
+poblacionEspaña2020<-47329981
+unionPan <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, by = c("Comunidades")) %>%
+  arrange(.data = ., TotalCancerPancreas, TotalAntidepresivos)%>%
+  summarise(Sexo = c("Hombres", "Mujeres", "Total"),
+            CancerPancreas = c(sum(HombreCancerPancreas)*100/poblacionEspaña2020, sum(MujerCancerPancreas)*100/poblacionEspaña2020, sum(TotalCancerPancreas)*100/poblacionEspaña2020),
+            Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
+  pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (CancerPancreas:Antidepresivos))
+unionPan
+graficaPan<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
+    geom_bar(position="dodge", stat="identity")
+graficaPan+facet_grid("Variables", scales = "free_y")
+
+
+```
+
+
+```{r}
+#columna comunidades en las dos tablas iguales para poder realizar el join 
+for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]<- muerteIsquemia$Comunidades[i]
   }
 }
-
-# Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
-# Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
 
 unionIS <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalIsquemia, TotalAntidepresivos)
@@ -286,7 +307,7 @@ unionIS<-unionIS%>%
 ```
 
 Hacemos el left_join
-Medicamentos antidepresivos con muertes por demencia 
+Medicamentos antidepresivos con muertes por isquemia 
 ```{r}
 #columna comunidades en las dos tablas iguales para poder realizar el join 
 for(i in 1:nrow(medicamentosAntidepresivos)){
@@ -295,19 +316,17 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
   }
 }
 
-# Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
-# Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
 poblacionEspaña2020<-47329981
 unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
-  arrange(.data = ., TotalIsquemia, TotalAntidepresivos)%>%#codigo nuevo Aitna apartir de aqui, antes hace el full join 
+  arrange(.data = ., TotalIsquemia, TotalAntidepresivos)%>%
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
             Isquemia = c(sum(HombreIsquemia)*100/poblacionEspaña2020, sum(MujerIsquemia)*100/poblacionEspaña2020, sum(TotalIsquemia)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Isquemia:Antidepresivos))
 unionIsq
-grafica<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
+graficaIsq<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
-grafica+facet_grid("Variables", scales = "free_y")
+graficaIsq+facet_grid("Variables", scales = "free_y")
 
 ```
 
