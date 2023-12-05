@@ -238,7 +238,7 @@ union <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Co
             Demencia = c(sum(HombreDemencia), sum(MujerDemencia), sum(TotalDemencia)),
             Antidepresivos = c(sum(HombreAntidepresivos), sum(MujerAntidepresivos), sum(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "condicion", values_to = "valores", cols = (Demencia:Antidepresivos))
-
+union
 ggplot(union, aes(fill = condicion, y=valores, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 
