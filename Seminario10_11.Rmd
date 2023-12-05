@@ -233,12 +233,15 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 # Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
 
 union <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
-  arrange(.data = ., TotalDemencia, TotalAntidepresivos)%>%
+  arrange(.data = ., TotalDemencia, TotalAntidepresivos)%>%#codigo nuevo Aitna apartir de aqui, antes hace el full join 
   summarise(sexo = c("Hombres", "Mujeres", "Total"),
             Demencia = c(sum(HombreDemencia), sum(MujerDemencia), sum(TotalDemencia)),
-            Antidepresivos = c(sum(HombreAntidepresivos), sum(MujerAntidepresivos), sum(TotalAntidepresivos)) )
+            Antidepresivos = c(sum(HombreAntidepresivos), sum(MujerAntidepresivos), sum(TotalAntidepresivos)))%>%
+  pivot_longer(names_to = "condicion", values_to = "valores", cols = (Demencia:Antidepresivos))
 
-union
+ggplot(union, aes(fill = condicion, y=valores, x=Sexo)) + 
+    geom_bar(position="dodge", stat="identity")
+
 
 #union<-union %>% 
  # pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
