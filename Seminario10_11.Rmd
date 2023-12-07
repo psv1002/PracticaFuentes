@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Introduccion
+A lo largo de este seminario vamos a estudiar como afecta el consumo de antidepresivos a la muerte debido a diferentes enfermedades como la demencia, el cáncer de pancreas y las enfermedades isquémicas.
 
 ## Objetivos
 ### Objetivo global 
@@ -85,21 +86,21 @@ library(readxl)
 ```
 
 ### Datos en Excel
-```{r eval=FALSE}
+```{r}
 enfermedades2 <- read_excel("DATOS/enfermedades.xlsx")
 medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
 ```
 
 ### Tabla de las defunciones por enfermedad según sexo
 Primero, creamos una tabla llamada "Enfe" igual que la tabla inicial "Enfermedades2", pero a partir de la fila 7 para quedarnos con los datos que nos interesan.
-```{r eval=FALSE}
+```{r}
 Enfe <- enfermedades2%>%
   slice(.data = ., 7:nrow(enfermedades2))
 ```
 
 Despues, hemos creado un dataframe que contiene las comunidades y los datos de las muertes por demencia según sexo.
 Tabla: muertes por cancer de pancreas en todas las comunidades(total, hombre y mujer)
-```{r eval=FALSE}
+```{r}
 # Primero creamos 4 vectores vacíos
 comunidades =c()
 total = c()
@@ -129,7 +130,7 @@ muerteDemencia
 
 Además, creamos un dataframe que contiene las comunidades y los datos de las muertes por cáncer de páncreas según sexo.
 Tabla: muertes por cáncer de páncreas en todas las comunidades(total, hombre y mujer)
-```{r eval=FALSE}
+```{r}
 # Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
 totalCP = c()
 mujerCP = c()
@@ -156,7 +157,7 @@ muerteCancerPancreas
 
 Por último, hemos creado un dataframe que contiene las comunidades y los datos de las muertes por enfermedades isquémicas según sexo.
 Tabla: muertes por enfermedades isquémicas  en todas las comunidades(total, hombre y mujer)
-```{r eval=FALSE}
+```{r}
 # Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
 total_isq = c()
 mujer_isq = c()
@@ -182,10 +183,10 @@ muerteIsquemia
 
 ```
 
-### Tabla de consumición de antidepresivos
-Hemos creado un dataframe que contiene las comunidades y los datos de la consumición de antidepresivos segun sexo.
-Tabla:Consumo de antidepresivos en todas las comunidades(total, hombre y mujer)
-```{r eval=FALSE}
+### Tabla de consumición de antidepresivos/estimulantes
+Hemos creado un dataframe que contiene las comunidades y los datos de la consumición de antidepresivos/estimulantes segun sexo.
+Tabla:Consumo de antidepresivos/estimulantes en todas las comunidades(total, hombre y mujer)
+```{r}
 # Creamos un dataframe que contenga las filas de la tabla medicamentos2 que tienen la información que nos interesa
 medicamentosAntidepresivos<- data.frame(
   select(.data = medicamentos2,`Asistencia sanitaria: Cifras relativas`)%>%slice(9:28)%>%rename(Comunidades = `Asistencia sanitaria: Cifras relativas`),
@@ -210,7 +211,7 @@ poblacionMujeres2020<-24107382
 ```
 
 Ahora, hacemos la union de los datos de defunciones por demencia y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
-Tabla: union de medicamentos antidepresivos con muertes por demencia:
+Tabla: union de medicamentos antidepresivos/estimulantes con muertes por demencia:
 ```{r}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteDemencia$Comunidades[i]){
@@ -227,7 +228,7 @@ unionDem
 ```
 
 Después, hacemos la union de los datos de defunciones por cáncer de páncreas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
-Tabla: union de medicamentos antidepresivos con muertes por cancer de pancreas 
+Tabla: union de medicamentos antidepresivos/estimulantes con muertes por cancer de pancreas 
 ```{r}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteCancerPancreas$Comunidades[i]){
@@ -252,7 +253,7 @@ Medicamentos antidepresivos con muertes por isquemia
 #columna comunidades en las dos tablas iguales para poder realizar el join 
 =======
 Por último, hacemos la union de los datos de defunciones por enfermedades isquémicas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
-Tabla: union de medicamentos antidepresivos con muertes por isquemia 
+Tabla: union de medicamentos antidepresivos/estimulantes con muertes por isquemia 
 ```{r}
 >>>>>>> 7177bd486dd68f0bbc340774c2ba21109634fc0d
 for(i in 1:nrow(medicamentosAntidepresivos)){
@@ -275,12 +276,12 @@ unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c(
 
 ## Gráficos
 ### Importación de librerias
-```{r eval=FALSE}
+```{r}
 library(ggplot2)
 library(tidyverse)
 ```
 
-###Gráfica de antidepresivos con muerte por Demencia
+###Gráfica de antidepresivos/estimulantes con muerte por Demencia
 ```{r}
 graficaDem<-ggplot(unionDem, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
@@ -288,14 +289,14 @@ graficaDem+facet_grid("Variables", scales = "free_y")
 
 ```
 
-###Gráfica de antidepresivos con muerte por Cancer de Páncreas
+###Gráfica de antidepresivos/estimulantes con muerte por Cancer de Páncreas
 ```{r}
 graficaPan<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaPan+facet_grid("Variables", scales = "free_y")
 ```
 
-###Gráfica de antidepresivos con muerte por Isquemia
+###Gráfica de antidepresivos/estimulantes con muerte por Isquemia
 ```{r}
 graficaIsq<-ggplot(unionPan, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
