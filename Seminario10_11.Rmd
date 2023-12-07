@@ -253,7 +253,7 @@ unionDem <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c(
 unionDem
 
 #Este codigo de la gráfica ya esta en el apartado de las gráficas
-graficaDem<-ggplot(union, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
+graficaDem<-ggplot(unionDem, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaDem+facet_grid("Variables", scales = "free_y")
 
