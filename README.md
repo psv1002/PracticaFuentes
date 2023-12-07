@@ -7,7 +7,7 @@ Objetivos:
 # Objetivos
 ## Objetivo global 
 El objetivo global de nuestro trabajo es analizar la relacion de antidepresivos/estimulantes con el número de defuncion por enfermedad.
-Nuestros datos han sido extraídos desde [Datos.gob](https://datos.gob.es/es/catalogo) en formato .json:
+Nuestros datos han sido extraídos desde [Datos.gob](https://datos.gob.es/es/catalogo) en formato .xls:
 - Número de defunciones por enfermedad según sexo y comunidad autónoma.
 - Porcentaje de medicamentos consumidos según sexo y comunidad autónoma.
 
