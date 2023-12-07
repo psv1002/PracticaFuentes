@@ -22,7 +22,7 @@ A lo largo de este seminario vamos a estudiar como afecta el consumo de antidepr
 ## Objetivos
 ### Objetivo global 
 El objetivo global de nuestro trabajo es analizar la relacion de antidepresivos/estimulantes con el número de defuncion por enfermedad.
-Nuestros datos han sido extraídos desde [Datos.gob](https://datos.gob.es/es/catalogo) en formato .json:
+Nuestros datos han sido extraídos desde [Datos.gob](https://datos.gob.es/es/catalogo) en formato Excel:
 - Número de defunciones por enfermedad según sexo y comunidad autónoma.
 - Porcentaje de medicamentos consumidos según sexo y comunidad autónoma.
 
@@ -286,8 +286,12 @@ library(tidyverse)
 graficaDem<-ggplot(unionDem, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaDem+facet_grid("Variables", scales = "free_y")
-
 ```
+**Conclusiones**:
+Vamos a realizar el análisis de la relacion entre el consumo de antidepresivos/estimulantes con la muerte por demecia según sexo:
+- Hombres: podemos ver en la gráfica que, a mayor consumo de antidepresivos/estimulantes, mayor numero de muertes por demencia. Esto demuestra una relación directamente proporcional entre estas dos variable.
+- Mujeres: podemos ver en la gráfica que, a mayor consumo de antidepresivos/estimulantes, mayor numero de muertes por demencia. En las mujeres este efecto es más notorio y las variables presentan una relación directamente proporcional entre estas dos variable.
+Aún así, este análisis no explica completamente la relación entre las dos variables. Es necesario realizar más análisis para reforzar esta idea.
 
 ###Gráfica de antidepresivos/estimulantes con muerte por Cancer de Páncreas
 ```{r}
