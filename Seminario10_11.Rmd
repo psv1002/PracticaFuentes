@@ -246,26 +246,17 @@ unionPan
 
 ```
 
-<<<<<<< HEAD
 Hacemos el left_join
 Medicamentos antidepresivos con muertes por isquemia 
-```{r}
-#columna comunidades en las dos tablas iguales para poder realizar el join 
-=======
 Por último, hacemos la union de los datos de defunciones por enfermedades isquémicas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
 Tabla: union de medicamentos antidepresivos/estimulantes con muertes por isquemia 
 ```{r}
->>>>>>> 7177bd486dd68f0bbc340774c2ba21109634fc0d
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]<- muerteIsquemia$Comunidades[i]
   }
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 7177bd486dd68f0bbc340774c2ba21109634fc0d
 unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalIsquemia, TotalAntidepresivos)%>%
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
@@ -306,7 +297,7 @@ Como podemos observar en la grafica, las muertes por cancer de pancreas en hombr
 
 ###Gráfica de antidepresivos/estimulantes con muerte por Isquemia
 ```{r}
-graficaIsq<-ggplot(unionPan, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
+graficaIsq<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaIsq+facet_grid("Variables", scales = "free_y")
 ```
