@@ -287,25 +287,6 @@ graficaPan+facet_grid("Variables", scales = "free_y")
 
 ```
 
-
-```{r}
-#columna comunidades en las dos tablas iguales para poder realizar el join 
-for(i in 1:nrow(medicamentosAntidepresivos)){
-  if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
-    medicamentosAntidepresivos$Comunidades[i]<- muerteIsquemia$Comunidades[i]
-  }
-}
-
-unionIS <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
-  arrange(.data = ., TotalIsquemia, TotalAntidepresivos)
-
-#Código original
-unionIS<-unionIS%>% 
-  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
-
-
-```
-
 Hacemos el left_join
 Medicamentos antidepresivos con muertes por isquemia 
 ```{r}
@@ -316,7 +297,7 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
   }
 }
 
-poblacionEspaña2020<-47329981
+
 unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalIsquemia, TotalAntidepresivos)%>%
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
@@ -344,7 +325,7 @@ library(tidyverse)
 
 ###Gráfica de antidepresivos con muerte por Demencia
 ```{r}
-graficaDem<-ggplot(union, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
+graficaDem<-ggplot(unionDem, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaDem+facet_grid("Variables", scales = "free_y")
 
@@ -357,7 +338,7 @@ graficaPan+facet_grid("Variables", scales = "free_y")
 ```
 ###Gráfica de antidepresivos con muerte por Isquemia
 ```{r}
-graficaIsq<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
+graficaIsq<-ggplot(unionPan, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaIsq+facet_grid("Variables", scales = "free_y")
 ```
