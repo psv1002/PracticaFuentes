@@ -280,7 +280,7 @@ graficaDem+facet_grid("Variables", scales = "free_y")
 
 ###Gráfica de antidepresivos/estimulantes con muerte por Cancer de Páncreas
 ```{r}
-graficaPan<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
+graficaPan<-ggplot(unionPan, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaPan+facet_grid("Variables", scales = "free_y")
 ```
