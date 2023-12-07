@@ -226,6 +226,11 @@ medicamentosAntidepresivos<-medicamentosAntidepresivos %>%
 medicamentosAntidepresivos
 ```
 
+```{r}
+poblacionEspaña2020<-47329981
+poblacionHombres2020<-23210668
+poblacionMujeres2020<-24107382
+```
 
 Hacemos el left_join
 Medicamentos antidepresivos con muertes por demencia 
@@ -239,11 +244,10 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 
 # Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
 # Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
-poblacionEspaña2020<-47329981
 unionDem <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalDemencia, TotalAntidepresivos)%>%#codigo nuevo Aitna apartir de aqui, antes hace el full join 
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
-            Demencia = c(sum(HombreDemencia,na.rm = TRUE)*100/poblacionEspaña2020, sum(MujerDemencia,na.rm = TRUE)*100/poblacionEspaña2020, sum(TotalDemencia,na.rm = TRUE)*100/poblacionEspaña2020),
+            Demencia = c(sum(HombreDemencia,na.rm = TRUE)*100/poblacionHombres2020, sum(MujerDemencia,na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalDemencia,na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Demencia:Antidepresivos))
 unionDem
@@ -252,7 +256,6 @@ unionDem
 graficaDem<-ggplot(union, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaDem+facet_grid("Variables", scales = "free_y")
-
 
 #union<-union %>% 
  # pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
