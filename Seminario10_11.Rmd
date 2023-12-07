@@ -271,7 +271,6 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
   }
 }
 
-
 unionPan <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, by = c("Comunidades")) %>%
   arrange(.data = ., TotalCancerPancreas, TotalAntidepresivos)%>%
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
@@ -287,25 +286,6 @@ graficaPan+facet_grid("Variables", scales = "free_y")
 
 ```
 
-
-```{r}
-#columna comunidades en las dos tablas iguales para poder realizar el join 
-for(i in 1:nrow(medicamentosAntidepresivos)){
-  if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
-    medicamentosAntidepresivos$Comunidades[i]<- muerteIsquemia$Comunidades[i]
-  }
-}
-
-unionIS <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
-  arrange(.data = ., TotalIsquemia, TotalAntidepresivos)
-
-#Código original
-unionIS<-unionIS%>% 
-  pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
-
-
-```
-
 Hacemos el left_join
 Medicamentos antidepresivos con muertes por isquemia 
 ```{r}
@@ -316,11 +296,10 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
   }
 }
 
-poblacionEspaña2020<-47329981
 unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalIsquemia, TotalAntidepresivos)%>%
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
-            Isquemia = c(sum(HombreIsquemia, na.rm = TRUE)*100/poblacionEspaña2020, sum(MujerIsquemia, na.rm = TRUE)*100/poblacionEspaña2020, sum(TotalIsquemia, na.rm = TRUE)*100/poblacionEspaña2020),
+            Isquemia = c(sum(HombreIsquemia, na.rm = TRUE)*100/poblacionHombres2020, sum(MujerIsquemia, na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalIsquemia, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Isquemia:Antidepresivos))
 
