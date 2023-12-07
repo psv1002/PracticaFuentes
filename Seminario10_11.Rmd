@@ -333,6 +333,14 @@ graficaIsq<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) +
 graficaIsq+facet_grid("Variables", scales = "free_y")
 ```
 
+**Conclusiones**:
+
+Por último vamos a realiazar el analisis en la relacion entre el consumo de antidepresivos/estimulantes con la muerte por isquemia segun el sexo:
+
+- Se ve en la gráfica que los hombres que toman menos antidepresivos tienen un mayor número de muertes por isquemia. 
+
+- Y en lo referido a las mujeres, cuanto más antidepresivos toman menor es el número de muertes por isquemia.
+
 ## Bibliografia
 -[InformaciónIsquemia](https://www.topdoctors.es/diccionario-medico/isquemia)
 
