@@ -86,21 +86,21 @@ library(readxl)
 ```
 
 ### Datos en Excel
-```{r eval=FALSE}
+```{r}
 enfermedades2 <- read_excel("DATOS/enfermedades.xlsx")
 medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
 ```
 
 ### Tabla de las defunciones por enfermedad según sexo
 Primero, creamos una tabla llamada "Enfe" igual que la tabla inicial "Enfermedades2", pero a partir de la fila 7 para quedarnos con los datos que nos interesan.
-```{r eval=FALSE}
+```{r}
 Enfe <- enfermedades2%>%
   slice(.data = ., 7:nrow(enfermedades2))
 ```
 
 Despues, hemos creado un dataframe que contiene las comunidades y los datos de las muertes por demencia según sexo.
 Tabla: muertes por cancer de pancreas en todas las comunidades(total, hombre y mujer)
-```{r eval=FALSE}
+```{r}
 # Primero creamos 4 vectores vacíos
 comunidades =c()
 total = c()
@@ -130,7 +130,7 @@ muerteDemencia
 
 Además, creamos un dataframe que contiene las comunidades y los datos de las muertes por cáncer de páncreas según sexo.
 Tabla: muertes por cáncer de páncreas en todas las comunidades(total, hombre y mujer)
-```{r eval=FALSE}
+```{r}
 # Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
 totalCP = c()
 mujerCP = c()
@@ -157,7 +157,7 @@ muerteCancerPancreas
 
 Por último, hemos creado un dataframe que contiene las comunidades y los datos de las muertes por enfermedades isquémicas según sexo.
 Tabla: muertes por enfermedades isquémicas  en todas las comunidades(total, hombre y mujer)
-```{r eval=FALSE}
+```{r}
 # Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
 total_isq = c()
 mujer_isq = c()
@@ -186,7 +186,7 @@ muerteIsquemia
 ### Tabla de consumición de antidepresivos
 Hemos creado un dataframe que contiene las comunidades y los datos de la consumición de antidepresivos segun sexo.
 Tabla:Consumo de antidepresivos en todas las comunidades(total, hombre y mujer)
-```{r eval=FALSE}
+```{r}
 # Creamos un dataframe que contenga las filas de la tabla medicamentos2 que tienen la información que nos interesa
 medicamentosAntidepresivos<- data.frame(
   select(.data = medicamentos2,`Asistencia sanitaria: Cifras relativas`)%>%slice(9:28)%>%rename(Comunidades = `Asistencia sanitaria: Cifras relativas`),
@@ -265,7 +265,7 @@ unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c(
 
 ## Gráficos
 ### Importación de librerias
-```{r eval=FALSE}
+```{r}
 library(ggplot2)
 library(tidyverse)
 ```
