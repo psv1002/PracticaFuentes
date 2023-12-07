@@ -183,9 +183,9 @@ muerteIsquemia
 
 ```
 
-### Tabla de consumición de antidepresivos
-Hemos creado un dataframe que contiene las comunidades y los datos de la consumición de antidepresivos segun sexo.
-Tabla:Consumo de antidepresivos en todas las comunidades(total, hombre y mujer)
+### Tabla de consumición de antidepresivos/estimulantes
+Hemos creado un dataframe que contiene las comunidades y los datos de la consumición de antidepresivos/estimulantes segun sexo.
+Tabla:Consumo de antidepresivos/estimulantes en todas las comunidades(total, hombre y mujer)
 ```{r}
 # Creamos un dataframe que contenga las filas de la tabla medicamentos2 que tienen la información que nos interesa
 medicamentosAntidepresivos<- data.frame(
@@ -211,7 +211,7 @@ poblacionMujeres2020<-24107382
 ```
 
 Ahora, hacemos la union de los datos de defunciones por demencia y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
-Tabla: union de medicamentos antidepresivos con muertes por demencia:
+Tabla: union de medicamentos antidepresivos/estimulantes con muertes por demencia:
 ```{r}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteDemencia$Comunidades[i]){
@@ -228,7 +228,7 @@ unionDem
 ```
 
 Después, hacemos la union de los datos de defunciones por cáncer de páncreas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
-Tabla: union de medicamentos antidepresivos con muertes por cancer de pancreas 
+Tabla: union de medicamentos antidepresivos/estimulantes con muertes por cancer de pancreas 
 ```{r}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteCancerPancreas$Comunidades[i]){
@@ -247,7 +247,7 @@ unionPan
 ```
 
 Por último, hacemos la union de los datos de defunciones por enfermedades isquémicas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
-Tabla: union de medicamentos antidepresivos con muertes por isquemia 
+Tabla: union de medicamentos antidepresivos/estimulantes con muertes por isquemia 
 ```{r}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
@@ -270,7 +270,7 @@ library(ggplot2)
 library(tidyverse)
 ```
 
-###Gráfica de antidepresivos con muerte por Demencia
+###Gráfica de antidepresivos/estimulantes con muerte por Demencia
 ```{r}
 graficaDem<-ggplot(union, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
@@ -278,14 +278,14 @@ graficaDem+facet_grid("Variables", scales = "free_y")
 
 ```
 
-###Gráfica de antidepresivos con muerte por Cancer de Páncreas
+###Gráfica de antidepresivos/estimulantes con muerte por Cancer de Páncreas
 ```{r}
 graficaPan<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaPan+facet_grid("Variables", scales = "free_y")
 ```
 
-###Gráfica de antidepresivos con muerte por Isquemia
+###Gráfica de antidepresivos/estimulantes con muerte por Isquemia
 ```{r}
 graficaIsq<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
