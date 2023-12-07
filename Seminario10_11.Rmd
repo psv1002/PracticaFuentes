@@ -299,6 +299,10 @@ graficaPan<-ggplot(unionPan, aes(fill = Variables, y=Porcentajes, x=Sexo)) +
     geom_bar(position="dodge", stat="identity")
 graficaPan+facet_grid("Variables", scales = "free_y")
 ```
+**Conclusiones**
+A continuacion vamos a reliazar el analisis en la relacion entre el consumo de antidepresivos/estimulantes con la muerte por cancer de pancreas segun sexo:
+Como podemos observar en la grafica, las muertes por cancer de pancreas en hombres y muejeres es semejante, no obstante respecto al consumo de antidepresivos/estimulantes es evidente que el consumo es mayor en mujeres que en hombres. 
+
 
 ###Gráfica de antidepresivos/estimulantes con muerte por Isquemia
 ```{r}
