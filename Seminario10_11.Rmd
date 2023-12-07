@@ -293,8 +293,6 @@ unionPan <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, b
             CancerPancreas = c(sum(HombreCancerPancreas, na.rm = TRUE)*100/poblacionEspaña2020, sum(MujerCancerPancreas, na.rm = TRUE)*100/poblacionEspaña2020, sum(TotalCancerPancreas, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (CancerPancreas:Antidepresivos))
-unionPan
-
 
 #Este codigo de la gráfica ya esta en el apartado de las gráficas
 graficaPan<-ggplot(unionPan, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
@@ -340,7 +338,6 @@ unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c(
             Isquemia = c(sum(HombreIsquemia, na.rm = TRUE)*100/poblacionEspaña2020, sum(MujerIsquemia, na.rm = TRUE)*100/poblacionEspaña2020, sum(TotalIsquemia, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Isquemia:Antidepresivos))
-unionIsq
 
 #Este codigo de la gráfica ya esta en el apartado de las gráficas
 graficaIsq<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
@@ -379,7 +376,7 @@ graficaIsq<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) +
     geom_bar(position="dodge", stat="identity")
 graficaIsq+facet_grid("Variables", scales = "free_y")
 ```
-#Prueba de gráfica como dijo en Tutoría solo de comunidades y antidepresivos/estimulantes
+Prueba de gráfica como dijo en Tutoría solo de comunidades y antidepresivos/estimulantes
 ```{r}
 comunidadesAntidepresivos <- pivot_longer(data = medicamentosAntidepresivos, names_to = "Variables", values_to = "Porcentajes", cols = (TotalAntidepresivos:MujerAntidepresivos))
 
@@ -413,4 +410,3 @@ grafico_MuertesDemencia
 -[InformaciónAntidepresivos](https://medlineplus.gov/spanish/antidepressants.html)
 
 -[InformaciónEstimulantes](https://es.wikipedia.org/wiki/Estimulante)
-
