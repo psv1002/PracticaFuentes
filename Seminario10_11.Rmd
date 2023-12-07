@@ -67,7 +67,7 @@ Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las 
 -Percepción visual 
 
 ## Importacion de datos
-### Instalacion de liberias
+### Instalacion de librerias
 ```{r}
 install.packages("rjson")
 install.packages("stats")
@@ -81,49 +81,24 @@ library(rjson)
 library(tidyjson)
 library(dplyr)
 library(tidyverse)
-```
-
-INTENTO DE IMPORTACION DE DATOS EN JSON
-```{r}
-enfermedades <- fromJSON(file ="DATOS/enfermedades.json")
-enfermedad_DF <- spread_all(enfermedades)
-```
-
-```{r}
-medicamentos <- fromJSON(file ="DATOS/medicamentos_consumidos.json")
-medicamentos_DF <- spread_all(medicamentos)
-
-df <- medicamentos_DF%>%
-  gather_object%>%
-  select()
-```
-
-```{r}
-summary(medicamentos_DF)
-head(medicamentos_DF)
-```
-
-IMPORTACION DE DATOS EN EXCEL
-```{r eval=FALSE}
 library(readxl)
+```
+
+### Datos en Excel
+```{r eval=FALSE}
 enfermedades2 <- read_excel("DATOS/enfermedades.xlsx")
 medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
 ```
 
-Modificamos primero la tabla enfermedades 2
+### Tabla de las defunciones por enfermedad según sexo
+Primero, creamos una tabla llamada "Enfe" igual que la tabla inicial "Enfermedades2", pero a partir de la fila 7 para quedarnos con los datos que nos interesan.
 ```{r eval=FALSE}
-# Creamos una tabla llamada Enfe igual que la tabla inicial Enfermedades2 pero a partir de la fila 7 para quedarnos con los datos que nos interesan
 Enfe <- enfermedades2%>%
   slice(.data = ., 7:nrow(enfermedades2))
 ```
 
-
-```{r eval=FALSE}
-summary(Enfe)
-head(Enfe)
-```
-
-Tabla: muertes por demencia en todas las comunidades(total, hombre y mujer)
+Despues, hemos creado un dataframe que contiene las comunidades y los datos de las muertes por demencia según sexo.
+Tabla: muertes por cancer de pancreas en todas las comunidades(total, hombre y mujer)
 ```{r eval=FALSE}
 # Primero creamos 4 vectores vacíos
 comunidades =c()
@@ -131,8 +106,8 @@ total = c()
 mujer = c()
 hombre = c()
 
-# Después vamos recorriendo la tabla Enfe y vamos accediendo a las filas en las que ponga "Demencia", tras esto añadimos al vector vacío llamado "comunidades" las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila "Demencia".
-# A continuación añadimos a los vectores total, mujer y hombre los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes a la fila de "Demencia"
+# Después vamos recorriendo la tabla Enfe y vamos accediendo a las filas en las que ponga "Demencia". Tras esto añadimos al vector vacío llamado "comunidades" las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila "Demencia".
+# A continuación, añadimos a los vectores total, mujer y hombre los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes a la fila de "Demencia"
 
 for(i in 1:nrow(Enfe)){
     if(!is.na(Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i]) && Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i] == "Demencia"){
@@ -152,7 +127,8 @@ muerteDemencia <- data.frame(
 muerteDemencia
 ```
 
-Tabla: muertes por cancer de pancreas en todas las comunidades(total, hombre y mujer)
+Además, creamos un dataframe que contiene las comunidades y los datos de las muertes por cáncer de páncreas según sexo.
+Tabla: muertes por cáncer de páncreas en todas las comunidades(total, hombre y mujer)
 ```{r eval=FALSE}
 # Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
 totalCP = c()
@@ -178,6 +154,7 @@ muerteCancerPancreas <- data.frame(
 muerteCancerPancreas
 ```
 
+Por último, hemos creado un dataframe que contiene las comunidades y los datos de las muertes por enfermedades isquémicas según sexo.
 Tabla: muertes por enfermedades isquémicas  en todas las comunidades(total, hombre y mujer)
 ```{r eval=FALSE}
 # Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
@@ -205,10 +182,9 @@ muerteIsquemia
 
 ```
 
-
-
-Modificamos la tabla medicamentos2
-Tabla:Consumo de antidepresivos  en todas las comunidades(total, hombre y mujer)
+### Tabla de consumición de antidepresivos
+Hemos creado un dataframe que contiene las comunidades y los datos de la consumición de antidepresivos segun sexo.
+Tabla:Consumo de antidepresivos en todas las comunidades(total, hombre y mujer)
 ```{r eval=FALSE}
 # Creamos un dataframe que contenga las filas de la tabla medicamentos2 que tienen la información que nos interesa
 medicamentosAntidepresivos<- data.frame(
@@ -226,51 +202,38 @@ medicamentosAntidepresivos<-medicamentosAntidepresivos %>%
 medicamentosAntidepresivos
 ```
 
+Estos son los datos de la poblacion total y por sexo en 2020 en España sacados de la pagina del Instituto Nacional de Estadística:
 ```{r}
-poblacionEspaña2020<-47329981
+poblacionEspaña2020<-47318050
 poblacionHombres2020<-23210668
 poblacionMujeres2020<-24107382
 ```
 
-Hacemos el left_join
-Medicamentos antidepresivos con muertes por demencia 
+Ahora, hacemos la union de los datos de defunciones por demencia y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
+Tabla: union de medicamentos antidepresivos con muertes por demencia:
 ```{r}
-#columna comunidades en las dos tablas iguales para poder realizar el join 
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteDemencia$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]<- muerteDemencia$Comunidades[i]
   }
 }
-
-# Lo que falla es que las dos tablas que queremos juntar tienen distintos nombre de comunidades (unicamente cambian en un parentesis algunas) por eso aparecen NA
-# Si hacemos un full_join vemos que aparecen los nombres de las mismas comunidades pero con un parentesis mas:
 unionDem <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
-  arrange(.data = ., TotalDemencia, TotalAntidepresivos)%>%#codigo nuevo Aitna apartir de aqui, antes hace el full join 
+  arrange(.data = ., TotalDemencia, TotalAntidepresivos)%>%
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
             Demencia = c(sum(HombreDemencia,na.rm = TRUE)*100/poblacionHombres2020, sum(MujerDemencia,na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalDemencia,na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Demencia:Antidepresivos))
 unionDem
-
-#Este codigo de la gráfica ya esta en el apartado de las gráficas
-graficaDem<-ggplot(unionDem, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
-    geom_bar(position="dodge", stat="identity")
-graficaDem+facet_grid("Variables", scales = "free_y")
-
-#union<-union %>% 
- # pivot_longer(names_to = "Sexo", values_to = "Valores", cols = c(HombreAntidepresivos:MujerAntidepresivos))
 ```
 
-Medicamentos antidepresivos con muertes por cancer de pancreas 
-
+Después, hacemos la union de los datos de defunciones por cáncer de páncreas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
+Tabla: union de medicamentos antidepresivos con muertes por cancer de pancreas 
 ```{r}
-#columna comunidades en las dos tablas iguales para poder realizar el join 
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteCancerPancreas$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]<- muerteCancerPancreas$Comunidades[i]
   }
 }
-
 
 unionPan <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, by = c("Comunidades")) %>%
   arrange(.data = ., TotalCancerPancreas, TotalAntidepresivos)%>%
@@ -279,42 +242,36 @@ unionPan <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, b
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (CancerPancreas:Antidepresivos))
 unionPan
-#Este codigo de la gráfica ya esta en el apartado de las gráficas
-graficaPan<-ggplot(unionPan, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
-    geom_bar(position="dodge", stat="identity")
-graficaPan+facet_grid("Variables", scales = "free_y")
-
 
 ```
 
+<<<<<<< HEAD
 Hacemos el left_join
 Medicamentos antidepresivos con muertes por isquemia 
 ```{r}
 #columna comunidades en las dos tablas iguales para poder realizar el join 
+=======
+Por último, hacemos la union de los datos de defunciones por enfermedades isquémicas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
+Tabla: union de medicamentos antidepresivos con muertes por isquemia 
+```{r}
+>>>>>>> 7177bd486dd68f0bbc340774c2ba21109634fc0d
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]<- muerteIsquemia$Comunidades[i]
   }
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7177bd486dd68f0bbc340774c2ba21109634fc0d
 unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalIsquemia, TotalAntidepresivos)%>%
   summarise(Sexo = c("Hombres", "Mujeres", "Total"),
-            Isquemia = c(sum(HombreIsquemia, na.rm = TRUE)*100/poblacionEspaña2020, sum(MujerIsquemia, na.rm = TRUE)*100/poblacionEspaña2020, sum(TotalIsquemia, na.rm = TRUE)*100/poblacionEspaña2020),
+            Isquemia = c(sum(HombreIsquemia, na.rm = TRUE)*100/poblacionHombres2020, sum(MujerIsquemia, na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalIsquemia, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Isquemia:Antidepresivos))
-
-#Este codigo de la gráfica ya esta en el apartado de las gráficas
-graficaIsq<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
-    geom_bar(position="dodge", stat="identity")
-graficaIsq+facet_grid("Variables", scales = "free_y")
-
 ```
-
-
-
-
 
 ## Gráficos
 ### Importación de librerias
@@ -330,39 +287,20 @@ graficaDem<-ggplot(unionDem, aes(fill = Variables, y=Porcentajes, x=Sexo)) +
 graficaDem+facet_grid("Variables", scales = "free_y")
 
 ```
+
 ###Gráfica de antidepresivos con muerte por Cancer de Páncreas
 ```{r}
 graficaPan<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaPan+facet_grid("Variables", scales = "free_y")
 ```
+
 ###Gráfica de antidepresivos con muerte por Isquemia
 ```{r}
 graficaIsq<-ggplot(unionPan, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
 graficaIsq+facet_grid("Variables", scales = "free_y")
 ```
-Prueba de gráfica como dijo en Tutoría solo de comunidades y antidepresivos/estimulantes
-```{r}
-comunidadesAntidepresivos <- pivot_longer(data = medicamentosAntidepresivos, names_to = "Variables", values_to = "Porcentajes", cols = (TotalAntidepresivos:MujerAntidepresivos))
-
-graficaAntidepresivos<-ggplot(comunidadesAntidepresivos, aes(fill = Variables, y=Comunidades, x=Porcentajes)) + 
-    geom_bar(position="dodge", stat="identity")
-graficaAntidepresivos+facet_grid("Variables", scales = "free_y")
-```
-
-
-
-
-
-```{r eval=FALSE}
-grafico_MuertesDemencia <- ggplot(data = union, aes(x = TotalAntidepresivos, y = TotalDemencia)) +
-  geom_point()+
-  labs(x = "Porcentaje de antidepresivos consumidos", y = "Nº de defunciones por demencia", subtitle = "Relación de antidepresivos con muertes por demencia")
-
-grafico_MuertesDemencia
-```
-
 
 ## Bibliografia
 -[InformaciónIsquemia](https://www.topdoctors.es/diccionario-medico/isquemia)
