@@ -236,7 +236,7 @@ poblacionMujeres2020<-24107382
 Ahora, hacemos la union de los datos de defunciones por demencia y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
 
 Tabla: union de medicamentos antidepresivos/estimulantes con muertes por demencia:
-```{r}
+```{r message = FALSE}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteDemencia$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]<- muerteDemencia$Comunidades[i]
@@ -254,7 +254,7 @@ unionDem
 Después, hacemos la union de los datos de defunciones por cáncer de páncreas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
 
 Tabla: union de medicamentos antidepresivos/estimulantes con muertes por cancer de pancreas 
-```{r}
+```{r message = FALSE}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteCancerPancreas$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]<- muerteCancerPancreas$Comunidades[i]
@@ -274,7 +274,7 @@ unionPan
 Por último, hacemos la union de los datos de defunciones por enfermedades isquémicas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
 
 Tabla: union de medicamentos antidepresivos/estimulantes con muertes por isquemia 
-```{r}
+```{r unionIsq}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]<- muerteIsquemia$Comunidades[i]
@@ -287,6 +287,8 @@ unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c(
             Isquemia = c(sum(HombreIsquemia, na.rm = TRUE)*100/poblacionHombres2020, sum(MujerIsquemia, na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalIsquemia, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Isquemia:Antidepresivos))
+
+unionIsq
 ```
 
 ## Gráficos
