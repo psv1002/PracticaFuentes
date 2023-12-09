@@ -337,9 +337,11 @@ graficaIsq+facet_grid("Variables", scales = "free_y")
 
 Por último vamos a realiazar el analisis en la relacion entre el consumo de antidepresivos/estimulantes con la muerte por isquemia segun el sexo:
 
-- Se ve en la gráfica que los hombres que toman menos antidepresivos tienen un mayor número de muertes por isquemia. 
+- Hombres: se puede apreciar en la gráfica que a mayor consumo de antidepresivos/estimulantes menor es el número de muertes por isquemia. Esto nos muestra que existe una relación inversamente proporcional entre el consumo de antidepresivos/estimulantes y la muerte por isquemia. 
 
-- Y en lo referido a las mujeres, cuanto más antidepresivos toman menor es el número de muertes por isquemia.
+- Mujeres: se puede apreciar en la gráfica que a menor consumo de antidepresivos/estimulantes mayor es el número de muertes por isquemia. Esto nos indica que existe una relación inversamente proporcional entre ambas variables.
+
+A pesar de todo esto, es necesario realizar un mayor número de pruebas para determinar de manera concluyente que existe una relación inversamente proporcional entre estas dos variables.
 
 ## Bibliografia
 -[InformaciónIsquemia](https://www.topdoctors.es/diccionario-medico/isquemia)
