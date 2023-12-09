@@ -2861,10 +2861,18 @@ jucio</p></li>
 <pre class="r"><code>library(conflicted)</code></pre>
 <pre><code>## Warning: package &#39;conflicted&#39; was built under R version 4.3.2</code></pre>
 <pre class="r"><code>library(rjson)
-library(tidyjson)
-library(dplyr)
-library(tidyverse)
-library(readxl)</code></pre>
+library(tidyjson)</code></pre>
+<pre><code>## Warning: package &#39;tidyjson&#39; was built under R version 4.3.2</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.3.2</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 4.3.2</code></pre>
+<pre class="r"><code>library(readxl)</code></pre>
+<pre><code>## Warning: package &#39;readxl&#39; was built under R version 4.3.2</code></pre>
 </div>
 <div id="datos-en-excel" class="section level3">
 <h3>Datos en Excel</h3>
@@ -3025,18 +3033,11 @@ por demencia:</p>
 }
 unionDem &lt;-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c(&quot;Comunidades&quot;)) %&gt;%
   arrange(.data = ., TotalDemencia, TotalAntidepresivos)%&gt;%
-  summarise(Sexo = c(&quot;Hombres&quot;, &quot;Mujeres&quot;, &quot;Total&quot;),
+  reframe(Sexo = c(&quot;Hombres&quot;, &quot;Mujeres&quot;, &quot;Total&quot;),
             Demencia = c(sum(HombreDemencia,na.rm = TRUE)*100/poblacionHombres2020, sum(MujerDemencia,na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalDemencia,na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%&gt;%
-  pivot_longer(names_to = &quot;Variables&quot;, values_to = &quot;Porcentajes&quot;, cols = (Demencia:Antidepresivos))</code></pre>
-<pre><code>## Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-## dplyr 1.1.0.
-## ℹ Please use `reframe()` instead.
-## ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
-##   always returns an ungrouped data frame and adjust accordingly.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
-<pre class="r"><code>unionDem</code></pre>
+  pivot_longer(names_to = &quot;Variables&quot;, values_to = &quot;Porcentajes&quot;, cols = (Demencia:Antidepresivos))
+unionDem</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["Sexo"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Variables"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Porcentajes"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hombres","2":"Demencia","3":"0.02563476"},{"1":"Hombres","2":"Antidepresivos","3":"2.54600000"},{"1":"Mujeres","2":"Demencia","3":"0.05234081"},{"1":"Mujeres","2":"Antidepresivos","3":"6.00050000"},{"1":"Total","2":"Demencia","3":"0.03924084"},{"1":"Total","2":"Antidepresivos","3":"4.31800000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -3055,18 +3056,11 @@ por cancer de pancreas</p>
 
 unionPan &lt;-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, by = c(&quot;Comunidades&quot;)) %&gt;%
   arrange(.data = ., TotalCancerPancreas, TotalAntidepresivos)%&gt;%
-  summarise(Sexo = c(&quot;Hombres&quot;, &quot;Mujeres&quot;, &quot;Total&quot;),
+  reframe(Sexo = c(&quot;Hombres&quot;, &quot;Mujeres&quot;, &quot;Total&quot;),
             CancerPancreas = c(sum(HombreCancerPancreas, na.rm = TRUE)*100/poblacionHombres2020, sum(MujerCancerPancreas, na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalCancerPancreas, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%&gt;%
-  pivot_longer(names_to = &quot;Variables&quot;, values_to = &quot;Porcentajes&quot;, cols = (CancerPancreas:Antidepresivos))</code></pre>
-<pre><code>## Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-## dplyr 1.1.0.
-## ℹ Please use `reframe()` instead.
-## ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
-##   always returns an ungrouped data frame and adjust accordingly.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
-<pre class="r"><code>unionPan</code></pre>
+  pivot_longer(names_to = &quot;Variables&quot;, values_to = &quot;Porcentajes&quot;, cols = (CancerPancreas:Antidepresivos))
+unionPan</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["Sexo"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Variables"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Porcentajes"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hombres","2":"CancerPancreas","3":"0.01363166"},{"1":"Hombres","2":"Antidepresivos","3":"2.54600000"},{"1":"Mujeres","2":"CancerPancreas","3":"0.01224521"},{"1":"Mujeres","2":"Antidepresivos","3":"6.00050000"},{"1":"Total","2":"CancerPancreas","3":"0.01292530"},{"1":"Total","2":"Antidepresivos","3":"4.31800000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -3086,18 +3080,12 @@ por isquemia</p>
 
 unionIsq &lt;-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c(&quot;Comunidades&quot;)) %&gt;%
   arrange(.data = ., TotalIsquemia, TotalAntidepresivos)%&gt;%
-  summarise(Sexo = c(&quot;Hombres&quot;, &quot;Mujeres&quot;, &quot;Total&quot;),
+  reframe(Sexo = c(&quot;Hombres&quot;, &quot;Mujeres&quot;, &quot;Total&quot;),
             Isquemia = c(sum(HombreIsquemia, na.rm = TRUE)*100/poblacionHombres2020, sum(MujerIsquemia, na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalIsquemia, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%&gt;%
-  pivot_longer(names_to = &quot;Variables&quot;, values_to = &quot;Porcentajes&quot;, cols = (Isquemia:Antidepresivos))</code></pre>
-<pre><code>## Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-## dplyr 1.1.0.
-## ℹ Please use `reframe()` instead.
-## ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
-##   always returns an ungrouped data frame and adjust accordingly.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
-<pre class="r"><code>unionIsq</code></pre>
+  pivot_longer(names_to = &quot;Variables&quot;, values_to = &quot;Porcentajes&quot;, cols = (Isquemia:Antidepresivos))
+
+unionIsq</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["Sexo"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Variables"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Porcentajes"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hombres","2":"Isquemia","3":"0.06787396"},{"1":"Hombres","2":"Antidepresivos","3":"2.54600000"},{"1":"Mujeres","2":"Isquemia","3":"0.04262595"},{"1":"Mujeres","2":"Antidepresivos","3":"6.00050000"},{"1":"Total","2":"Isquemia","3":"0.05501072"},{"1":"Total","2":"Antidepresivos","3":"4.31800000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}

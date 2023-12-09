@@ -244,7 +244,7 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 }
 unionDem <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalDemencia, TotalAntidepresivos)%>%
-  summarise(Sexo = c("Hombres", "Mujeres", "Total"),
+  reframe(Sexo = c("Hombres", "Mujeres", "Total"),
             Demencia = c(sum(HombreDemencia,na.rm = TRUE)*100/poblacionHombres2020, sum(MujerDemencia,na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalDemencia,na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Demencia:Antidepresivos))
@@ -263,7 +263,7 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 
 unionPan <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, by = c("Comunidades")) %>%
   arrange(.data = ., TotalCancerPancreas, TotalAntidepresivos)%>%
-  summarise(Sexo = c("Hombres", "Mujeres", "Total"),
+  reframe(Sexo = c("Hombres", "Mujeres", "Total"),
             CancerPancreas = c(sum(HombreCancerPancreas, na.rm = TRUE)*100/poblacionHombres2020, sum(MujerCancerPancreas, na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalCancerPancreas, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (CancerPancreas:Antidepresivos))
@@ -283,7 +283,7 @@ for(i in 1:nrow(medicamentosAntidepresivos)){
 
 unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c("Comunidades")) %>%
   arrange(.data = ., TotalIsquemia, TotalAntidepresivos)%>%
-  summarise(Sexo = c("Hombres", "Mujeres", "Total"),
+  reframe(Sexo = c("Hombres", "Mujeres", "Total"),
             Isquemia = c(sum(HombreIsquemia, na.rm = TRUE)*100/poblacionHombres2020, sum(MujerIsquemia, na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalIsquemia, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Isquemia:Antidepresivos))
