@@ -94,7 +94,7 @@ Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las 
 
 ## Importacion de datos
 ### Importacion de librerias
-```{r}
+```{r message = FALSE}
 library(conflicted)
 library(rjson)
 library(tidyjson)
@@ -104,7 +104,7 @@ library(readxl)
 ```
 
 ### Datos en Excel
-```{r}
+```{r message = FALSE}
 enfermedades2 <- read_excel("DATOS/enfermedades.xlsx")
 medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
 ```
@@ -114,6 +114,7 @@ Primero, creamos una tabla llamada "Enfe" igual que la tabla inicial "Enfermedad
 ```{r}
 Enfe <- enfermedades2%>%
   slice(.data = ., 7:nrow(enfermedades2))
+
 ```
 
 Despues, hemos creado un dataframe que contiene las comunidades y los datos de las muertes por demencia según sexo.
