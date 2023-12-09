@@ -2861,18 +2861,10 @@ jucio</p></li>
 <pre class="r"><code>library(conflicted)</code></pre>
 <pre><code>## Warning: package &#39;conflicted&#39; was built under R version 4.3.2</code></pre>
 <pre class="r"><code>library(rjson)
-library(tidyjson)</code></pre>
-<pre><code>## Warning: package &#39;tidyjson&#39; was built under R version 4.3.2</code></pre>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.3.2</code></pre>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.3.2</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.3.2</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.3.2</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.3.2</code></pre>
-<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 4.3.2</code></pre>
-<pre class="r"><code>library(readxl)</code></pre>
-<pre><code>## Warning: package &#39;readxl&#39; was built under R version 4.3.2</code></pre>
+library(tidyjson)
+library(dplyr)
+library(tidyverse)
+library(readxl)</code></pre>
 </div>
 <div id="datos-en-excel" class="section level3">
 <h3>Datos en Excel</h3>
@@ -3105,6 +3097,12 @@ unionIsq &lt;-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by =
 ##   always returns an ungrouped data frame and adjust accordingly.
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 ## generated.</code></pre>
+<pre class="r"><code>unionIsq</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Sexo"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Variables"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Porcentajes"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hombres","2":"Isquemia","3":"0.06787396"},{"1":"Hombres","2":"Antidepresivos","3":"2.54600000"},{"1":"Mujeres","2":"Isquemia","3":"0.04262595"},{"1":"Mujeres","2":"Antidepresivos","3":"6.00050000"},{"1":"Total","2":"Isquemia","3":"0.05501072"},{"1":"Total","2":"Antidepresivos","3":"4.31800000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <div id="gráficos" class="section level2">
