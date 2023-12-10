@@ -7,7 +7,7 @@ La practica de la asignatura de fuentes biomedicas y web semantica, ha sido real
    
 # Introduccion:
 A lo largo de este seminario vamos a estudiar como afecta el consumo de antidepresivos a la muerte debido a diferentes enfermedades como la demencia, el cáncer de pancreas y las enfermedades isquémicas.
-Objetivos:
+
 # Objetivos
 ## Objetivo global 
 El objetivo global de nuestro trabajo es analizar la relacion de antidepresivos/estimulantes con el número de defuncion por enfermedad.
