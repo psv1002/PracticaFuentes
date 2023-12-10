@@ -13,10 +13,6 @@ output:
     toc_float: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## 1. Introducción
 A lo largo de este seminario vamos a estudiar como afecta el consumo de antidepresivos a la muerte debido a diferentes enfermedades como la demencia, el cáncer de pancreas y las enfermedades isquémicas.
 
