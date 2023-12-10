@@ -1,5 +1,5 @@
 ---
-title: "Influencia de los antidepresivos/estimulantes en la muerte por diferentes enfermedades"
+title: "Influencia de los antidepresivos/estimulantes en la muerte por diferentes enfermedades" 
 subtitle: "Seminario Fuentes de datos Biomédicas y Web Semántica"
 author:
   - "Aitana Crespo Ferrero" 
@@ -12,6 +12,7 @@ output:
     toc: true
     toc_float: true
 ---
+![](./demencia.jpg){width='200px'}
 
 ## 1. Introducción
 A lo largo de este seminario vamos a estudiar como afecta el consumo de antidepresivos a la muerte debido a diferentes enfermedades como la demencia, el cáncer de pancreas y las enfermedades isquémicas.
