@@ -1,4 +1,4 @@
-# PracticaFuentes
+# Influencia de los antidepresivos/estimulantes en la muerte por diferentes enfermedades
 ![klipartz com](https://github.com/psv1002/PracticaFuentes/assets/126703142/d1bae9cf-ea01-4190-8fca-b7bd42a19e27)
 La practica de la asignatura de fuentes biomedicas y web semantica, ha sido realizada por:
 - Beatriz Alonso Martin
