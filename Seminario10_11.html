@@ -9,9 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Aitana Crespo Ferrero" />
-<meta name="author" content="Paula Santamaría Velasco" />
-<meta name="author" content="Beatriz Alonso Martín" />
+<meta name="author" content="- Aitana Crespo Ferrero" />
+<meta name="author" content="- Paula Santamaría Velasco" />
+<meta name="author" content="- Beatriz Alonso Martín" />
 
 
 <title>Influencia de los antidepresivos/estimulantes en la muerte por diferentes enfermedades</title>
@@ -2756,24 +2756,24 @@ antidepresivos/estimulantes en la muerte por diferentes
 enfermedades</h1>
 <h3 class="subtitle">Seminario Fuentes de datos Biomédicas y Web
 Semántica</h3>
-<h4 class="author">Aitana Crespo Ferrero</h4>
-<h4 class="author">Paula Santamaría Velasco</h4>
-<h4 class="author">Beatriz Alonso Martín</h4>
+<h4 class="author">- Aitana Crespo Ferrero</h4>
+<h4 class="author">- Paula Santamaría Velasco</h4>
+<h4 class="author">- Beatriz Alonso Martín</h4>
 <h4 class="date">10 diciembre, 2023</h4>
 
 </div>
 
 
 <div id="introducción" class="section level2">
-<h2>Introducción</h2>
+<h2>1. Introducción</h2>
 <p>A lo largo de este seminario vamos a estudiar como afecta el consumo
 de antidepresivos a la muerte debido a diferentes enfermedades como la
 demencia, el cáncer de pancreas y las enfermedades isquémicas.</p>
 </div>
 <div id="objetivos" class="section level2">
-<h2>Objetivos</h2>
+<h2>2. Objetivos</h2>
 <div id="objetivo-global" class="section level3">
-<h3>Objetivo global</h3>
+<h3>2.1. Objetivo global</h3>
 <p>El objetivo global de nuestro trabajo es analizar la relacion de
 antidepresivos/estimulantes con el número de defuncion por enfermedad.
 Nuestros datos han sido extraídos desde <a href="https://datos.gob.es/es/catalogo">Datos.gob</a> en formato
@@ -2786,7 +2786,7 @@ autónoma.</p></li>
 </ul>
 </div>
 <div id="objetivos-específicos" class="section level3">
-<h3>Objetivos específicos</h3>
+<h3>2.2. Objetivos específicos</h3>
 <ul>
 <li><p>Analizar como afectan los antidepresivos/estimulantes al número
 de defunciones por demencia</p></li>
@@ -2797,19 +2797,16 @@ de defunciones por enfermedades isquémicas</p></li>
 </ul>
 </div>
 </div>
-<div id="medicamentos" class="section level2">
-<h2>Medicamentos</h2>
+<div id="conceptos" class="section level2">
+<h2>3. Conceptos</h2>
 <div id="antidepresivosestimulantes" class="section level3">
-<h3>Antidepresivos/estimulantes</h3>
+<h3>3.1. Antidepresivos/estimulantes</h3>
 <p>Los antidepresivos son medicamentos psicotrópicos que se usan para
 tratar la depresión. Los estimulantes son sustancias que aumentan los
 niveles de actividad cognitiva y motriz</p>
 </div>
-</div>
-<div id="enfermedades" class="section level2">
-<h2>Enfermedades</h2>
 <div id="demencia" class="section level3">
-<h3>Demencia</h3>
+<h3>3.2. Demencia</h3>
 <p>La demencia es una enfermedad que se produce por daños a las celulas
 del cerebro.Esta lesión celular interfiere con la capacidad de las
 células cerebrales para comunicarse entre ellas. Cuando estas mismas no
@@ -2826,7 +2823,7 @@ jucio</p></li>
 </ul>
 </div>
 <div id="cáncer-de-páncreas" class="section level3">
-<h3>Cáncer de páncreas</h3>
+<h3>3.3. Cáncer de páncreas</h3>
 <p>El cáncer de páncreas se produce por la formación incontrolada de
 células malignas cancerosas en los tejidos del páncreas, por lo que las
 celulas sanas de este, dejan de funcionar correctamente.</p>
@@ -2842,7 +2839,7 @@ celulas sanas de este, dejan de funcionar correctamente.</p>
 </ul>
 </div>
 <div id="enfermedades-isquémicas" class="section level3">
-<h3>Enfermedades isquémicas</h3>
+<h3>3.4. Enfermedades isquémicas</h3>
 <p>Las enfermedades isquémicas producen la reducción del flujo sanguíneo
 en los tejidos del cuerpo humano, es decir disminuye el nivel de
 nutrientes y oxígeno en las zonas afectadas.</p>
@@ -2859,33 +2856,38 @@ nutrientes y oxígeno en las zonas afectadas.</p>
 </div>
 </div>
 <div id="importacion-de-datos" class="section level2">
-<h2>Importacion de datos</h2>
-<div id="importacion-de-librerias" class="section level3">
-<h3>Importacion de librerias</h3>
-<pre class="r"><code>library(conflicted)
-library(rjson)
-library(tidyjson)</code></pre>
-<pre><code>## Warning: package &#39;tidyjson&#39; was built under R version 4.3.2</code></pre>
-<pre class="r"><code>library(dplyr)
+<h2>4. Importacion de datos</h2>
+<div id="importación-de-librerias" class="section level3">
+<h3>4.1. Importación de librerias</h3>
+<pre class="r"><code>library(rjson)
+library(tidyjson)
+library(dplyr)
 library(tidyverse)
 library(readxl)</code></pre>
 </div>
-<div id="datos-en-excel" class="section level3">
-<h3>Datos en Excel</h3>
+<div id="carga-de-los-datos-en-excel" class="section level3">
+<h3>4.2. Carga de los datos en Excel</h3>
+<p>Hemos escogido el formato Excel para tratar los datos, debido a la
+complejidad para trabajar con los datos en JSON.</p>
 <pre class="r"><code>enfermedades2 &lt;- read_excel(&quot;DATOS/enfermedades.xlsx&quot;)
 medicamentos2 &lt;- read_excel(&quot;DATOS/medicamentos_consumidos.xlsx&quot;)</code></pre>
 </div>
-<div id="tabla-de-las-defunciones-por-enfermedad-según-sexo" class="section level3">
-<h3>Tabla de las defunciones por enfermedad según sexo</h3>
+</div>
+<div id="tratamiento-de-los-datos" class="section level2">
+<h2>5. Tratamiento de los datos</h2>
+<div id="defunciones-por-enfermedad-según-sexo-y-comunidad" class="section level3">
+<h3>5.1. Defunciones por enfermedad según sexo y comunidad</h3>
 <p>Primero, creamos una tabla llamada “Enfe” igual que la tabla inicial
 “Enfermedades2”, pero a partir de la fila 7 para quedarnos con los datos
 que nos interesan.</p>
 <pre class="r"><code>Enfe &lt;- enfermedades2%&gt;%
   slice(.data = ., 7:nrow(enfermedades2))</code></pre>
+<div id="demencia-1" class="section level4">
+<h4>Demencia</h4>
 <p>Despues, hemos creado un dataframe que contiene las comunidades y los
 datos de las muertes por demencia según sexo.</p>
-<p>Tabla: muertes por demencia en todas las comunidades(total, hombre y
-mujer)</p>
+<p><strong>Tabla: muertes por demencia en todas las comunidades (total,
+hombre y mujer)</strong></p>
 <pre class="r"><code># Primero creamos 4 vectores vacíos
 comunidades =c()
 totalDem = c()
@@ -2917,14 +2919,18 @@ muerteDemencia</code></pre>
 {"columns":[{"label":["Comunidades"],"name":[1],"type":["chr"],"align":["left"]},{"label":["TotalDemencia"],"name":[2],"type":["int"],"align":["right"]},{"label":["HombreDemencia"],"name":[3],"type":["int"],"align":["right"]},{"label":["MujerDemencia"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Total nacional","2":"9284","3":"2975","4":"6309"},{"1":"Andalucía","2":"972","3":"318","4":"654"},{"1":"Aragón","2":"361","3":"96","4":"265"},{"1":"Asturias, Principado de","2":"307","3":"93","4":"214"},{"1":"Balears, Illes","2":"147","3":"52","4":"95"},{"1":"Canarias","2":"262","3":"100","4":"162"},{"1":"Cantabria","2":"190","3":"62","4":"128"},{"1":"Castilla y León","2":"563","3":"192","4":"371"},{"1":"Castilla-La Mancha","2":"433","3":"153","4":"280"},{"1":"Cataluña","2":"1665","3":"543","4":"1122"},{"1":"Comunitat Valenciana","2":"685","3":"229","4":"456"},{"1":"Extremadura","2":"271","3":"86","4":"185"},{"1":"Galicia","2":"1062","3":"335","4":"727"},{"1":"Madrid, Comunidad de","2":"1181","3":"337","4":"844"},{"1":"Murcia, Región de","2":"200","3":"59","4":"141"},{"1":"Navarra, Comunidad Foral de","2":"130","3":"38","4":"92"},{"1":"País Vasco","2":"757","3":"243","4":"514"},{"1":"Rioja, La","2":"87","3":"36","4":"51"},{"1":"Ceuta","2":"9","3":"2","4":"7"},{"1":"Melilla","2":"2","3":"1","4":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+<div id="cáncer-de-páncreas-1" class="section level4">
+<h4>Cáncer de páncreas</h4>
 <p>Además, creamos un dataframe que contiene las comunidades y los datos
 de las muertes por cáncer de páncreas según sexo.</p>
-<p>Tabla: muertes por cáncer de páncreas en todas las comunidades(total,
-hombre y mujer)</p>
+<p><strong>Tabla: muertes por cáncer de páncreas en todas las
+comunidades (total, hombre y mujer)</strong></p>
 <pre class="r"><code># Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
 totalCP = c()
 mujerCP = c()
 hombreCP = c()
+
 
 # Después vamos recorriendo la tabla Enfe y vamos accediendo a las filas en las que ponga &quot;Cancer de páncreas&quot;, tras esto añadimos al vector vacío llamado &quot;comunidades&quot; las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila &quot;Cancer de páncreas&quot;.
 # A continuación añadimos a los vectores total, mujer y hombre los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes a la fila de &quot;Cancer de páncreas&quot;
@@ -2939,27 +2945,24 @@ for(i in 1:nrow(Enfe)){
 # Creamos un dataframe llamado muerteCancerPancreas con los vectores creados anteriormente
 muerteCancerPancreas &lt;- data.frame(
   Comunidades = comunidades,
-  TotalCancerPancreas = as.integer(totalCP),
-  HombreCancerPancreas = as.integer(hombreCP),
-  MujerCancerPancreas = as.integer(mujerCP))</code></pre>
-<pre><code>## Warning in data.frame(Comunidades = comunidades, TotalCancerPancreas =
-## as.integer(totalCP), : NAs introducidos por coerción
+  TotalCancerPancreas = suppressWarnings(as.numeric(totalCP)),
+  HombreCancerPancreas = suppressWarnings(as.numeric(hombreCP)),
+  MujerCancerPancreas = suppressWarnings(as.numeric(mujerCP))
+)
 
-## Warning in data.frame(Comunidades = comunidades, TotalCancerPancreas =
-## as.integer(totalCP), : NAs introducidos por coerción
-
-## Warning in data.frame(Comunidades = comunidades, TotalCancerPancreas =
-## as.integer(totalCP), : NAs introducidos por coerción</code></pre>
-<pre class="r"><code>muerteCancerPancreas</code></pre>
+muerteCancerPancreas</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Comunidades"],"name":[1],"type":["chr"],"align":["left"]},{"label":["TotalCancerPancreas"],"name":[2],"type":["int"],"align":["right"]},{"label":["HombreCancerPancreas"],"name":[3],"type":["int"],"align":["right"]},{"label":["MujerCancerPancreas"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Total nacional","2":"3058","3":"1582","4":"1476"},{"1":"Andalucía","2":"425","3":"221","4":"204"},{"1":"Aragón","2":"83","3":"35","4":"48"},{"1":"Asturias, Principado de","2":"83","3":"40","4":"43"},{"1":"Balears, Illes","2":"60","3":"39","4":"21"},{"1":"Canarias","2":"122","3":"60","4":"62"},{"1":"Cantabria","2":"49","3":"22","4":"27"},{"1":"Castilla y León","2":"169","3":"92","4":"77"},{"1":"Castilla-La Mancha","2":"129","3":"62","4":"67"},{"1":"Cataluña","2":"524","3":"271","4":"253"},{"1":"Comunitat Valenciana","2":"348","3":"194","4":"154"},{"1":"Extremadura","2":"82","3":"43","4":"39"},{"1":"Galicia","2":"244","3":"130","4":"114"},{"1":"Madrid, Comunidad de","2":"415","3":"205","4":"210"},{"1":"Murcia, Región de","2":"71","3":"43","4":"28"},{"1":"Navarra, Comunidad Foral de","2":"59","3":"32","4":"27"},{"1":"País Vasco","2":"171","3":"76","4":"95"},{"1":"Rioja, La","2":"19","3":"13","4":"6"},{"1":"Ceuta","2":"NA","3":"NA","4":"NA"},{"1":"Melilla","2":"5","3":"4","4":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["Comunidades"],"name":[1],"type":["chr"],"align":["left"]},{"label":["TotalCancerPancreas"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["HombreCancerPancreas"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["MujerCancerPancreas"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Total nacional","2":"3058","3":"1582","4":"1476"},{"1":"Andalucía","2":"425","3":"221","4":"204"},{"1":"Aragón","2":"83","3":"35","4":"48"},{"1":"Asturias, Principado de","2":"83","3":"40","4":"43"},{"1":"Balears, Illes","2":"60","3":"39","4":"21"},{"1":"Canarias","2":"122","3":"60","4":"62"},{"1":"Cantabria","2":"49","3":"22","4":"27"},{"1":"Castilla y León","2":"169","3":"92","4":"77"},{"1":"Castilla-La Mancha","2":"129","3":"62","4":"67"},{"1":"Cataluña","2":"524","3":"271","4":"253"},{"1":"Comunitat Valenciana","2":"348","3":"194","4":"154"},{"1":"Extremadura","2":"82","3":"43","4":"39"},{"1":"Galicia","2":"244","3":"130","4":"114"},{"1":"Madrid, Comunidad de","2":"415","3":"205","4":"210"},{"1":"Murcia, Región de","2":"71","3":"43","4":"28"},{"1":"Navarra, Comunidad Foral de","2":"59","3":"32","4":"27"},{"1":"País Vasco","2":"171","3":"76","4":"95"},{"1":"Rioja, La","2":"19","3":"13","4":"6"},{"1":"Ceuta","2":"NA","3":"NA","4":"NA"},{"1":"Melilla","2":"5","3":"4","4":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+<div id="enfermedades-isquémicas-1" class="section level4">
+<h4>Enfermedades isquémicas</h4>
 <p>Por último, hemos creado un dataframe que contiene las comunidades y
 los datos de las muertes por enfermedades isquémicas según sexo.</p>
-<p>Tabla: muertes por enfermedades isquémicas en todas las
-comunidades(total, hombre y mujer)</p>
+<p><strong>Tabla: muertes por enfermedades isquémicas en todas las
+comunidades(total, hombre y mujer)</strong></p>
 <pre class="r"><code># Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
 totalIsq = c()
 mujerIsq = c()
@@ -2978,23 +2981,25 @@ for(i in 1:nrow(Enfe)){
 # Creamos un dataframe llamado muerteIsquemia con los vectores creados anteriormente
 muerteIsquemia &lt;- data.frame(
   Comunidades = comunidades,
-  TotalIsquemia = as.integer(totalIsq),
-  HombreIsquemia = as.integer(hombreIsq),
-  MujerIsquemia = as.integer(mujerIsq))
+  TotalIsquemia = as.numeric(totalIsq),
+  HombreIsquemia = as.numeric(hombreIsq),
+  MujerIsquemia = as.numeric(mujerIsq))
 
 muerteIsquemia</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Comunidades"],"name":[1],"type":["chr"],"align":["left"]},{"label":["TotalIsquemia"],"name":[2],"type":["int"],"align":["right"]},{"label":["HombreIsquemia"],"name":[3],"type":["int"],"align":["right"]},{"label":["MujerIsquemia"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Total nacional","2":"13015","3":"7877","4":"5138"},{"1":"Andalucía","2":"2630","3":"1553","4":"1077"},{"1":"Aragón","2":"402","3":"242","4":"160"},{"1":"Asturias, Principado de","2":"442","3":"238","4":"204"},{"1":"Balears, Illes","2":"214","3":"136","4":"78"},{"1":"Canarias","2":"725","3":"426","4":"299"},{"1":"Cantabria","2":"152","3":"81","4":"71"},{"1":"Castilla y León","2":"852","3":"524","4":"328"},{"1":"Castilla-La Mancha","2":"577","3":"351","4":"226"},{"1":"Cataluña","2":"1784","3":"1099","4":"685"},{"1":"Comunitat Valenciana","2":"1383","3":"891","4":"492"},{"1":"Extremadura","2":"338","3":"204","4":"134"},{"1":"Galicia","2":"902","3":"569","4":"333"},{"1":"Madrid, Comunidad de","2":"1558","3":"897","4":"661"},{"1":"Murcia, Región de","2":"336","3":"209","4":"127"},{"1":"Navarra, Comunidad Foral de","2":"130","3":"77","4":"53"},{"1":"País Vasco","2":"443","3":"276","4":"167"},{"1":"Rioja, La","2":"94","3":"68","4":"26"},{"1":"Ceuta","2":"33","3":"23","4":"10"},{"1":"Melilla","2":"20","3":"13","4":"7"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["Comunidades"],"name":[1],"type":["chr"],"align":["left"]},{"label":["TotalIsquemia"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["HombreIsquemia"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["MujerIsquemia"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Total nacional","2":"13015","3":"7877","4":"5138"},{"1":"Andalucía","2":"2630","3":"1553","4":"1077"},{"1":"Aragón","2":"402","3":"242","4":"160"},{"1":"Asturias, Principado de","2":"442","3":"238","4":"204"},{"1":"Balears, Illes","2":"214","3":"136","4":"78"},{"1":"Canarias","2":"725","3":"426","4":"299"},{"1":"Cantabria","2":"152","3":"81","4":"71"},{"1":"Castilla y León","2":"852","3":"524","4":"328"},{"1":"Castilla-La Mancha","2":"577","3":"351","4":"226"},{"1":"Cataluña","2":"1784","3":"1099","4":"685"},{"1":"Comunitat Valenciana","2":"1383","3":"891","4":"492"},{"1":"Extremadura","2":"338","3":"204","4":"134"},{"1":"Galicia","2":"902","3":"569","4":"333"},{"1":"Madrid, Comunidad de","2":"1558","3":"897","4":"661"},{"1":"Murcia, Región de","2":"336","3":"209","4":"127"},{"1":"Navarra, Comunidad Foral de","2":"130","3":"77","4":"53"},{"1":"País Vasco","2":"443","3":"276","4":"167"},{"1":"Rioja, La","2":"94","3":"68","4":"26"},{"1":"Ceuta","2":"33","3":"23","4":"10"},{"1":"Melilla","2":"20","3":"13","4":"7"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
-<div id="tabla-de-consumición-de-antidepresivosestimulantes" class="section level3">
-<h3>Tabla de consumición de antidepresivos/estimulantes</h3>
+</div>
+<div id="consumición-de-antidepresivosestimulantes-según-sexo-y-comunidad" class="section level3">
+<h3>5.2. Consumición de antidepresivos/estimulantes según sexo y
+comunidad</h3>
 <p>Hemos creado un dataframe que contiene las comunidades y los datos de
 la consumición de antidepresivos/estimulantes segun sexo.</p>
-<p>Tabla:Consumo de antidepresivos/estimulantes en todas las
-comunidades(total, hombre y mujer)</p>
+<p><strong>Tabla: Consumo de antidepresivos/estimulantes en todas las
+comunidades(total, hombre y mujer)</strong></p>
 <pre class="r"><code># Creamos un dataframe que contenga las filas de la tabla medicamentos2 que tienen la información que nos interesa
 medicamentosAntidepresivos&lt;- data.frame(
   select(.data = medicamentos2,`Asistencia sanitaria: Cifras relativas`)%&gt;%slice(9:28)%&gt;%rename(Comunidades = `Asistencia sanitaria: Cifras relativas`),
@@ -3019,11 +3024,16 @@ España sacados de la pagina del Instituto Nacional de Estadística:</p>
 <pre class="r"><code>poblacionEspaña2020&lt;-47318050
 poblacionHombres2020&lt;-23210668
 poblacionMujeres2020&lt;-24107382</code></pre>
+</div>
+<div id="unión-de-las-tablas" class="section level3">
+<h3>5.3. Unión de las tablas</h3>
+<div id="demencia-y-antidepresivosestimulantes" class="section level4">
+<h4>Demencia y antidepresivos/estimulantes</h4>
 <p>Ahora, hacemos la union de los datos de defunciones por demencia y
 los de medicamentos consumidos. La unión se realiza por la columna
 “Comunidades” que es la común en las dos tablas.</p>
-<p>Tabla: union de medicamentos antidepresivos/estimulantes con muertes
-por demencia:</p>
+<p><strong>Tabla: unión de la consumición de antidepresivos/estimulantes
+con las muertes por demencia:</strong></p>
 <pre class="r"><code>for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteDemencia$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]&lt;- muerteDemencia$Comunidades[i]
@@ -3042,11 +3052,14 @@ unionDem</code></pre>
 {"columns":[{"label":["Sexo"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Variables"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Porcentajes"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hombres","2":"Demencia","3":"0.02563476"},{"1":"Hombres","2":"Antidepresivos","3":"2.54600000"},{"1":"Mujeres","2":"Demencia","3":"0.05234081"},{"1":"Mujeres","2":"Antidepresivos","3":"6.00050000"},{"1":"Total","2":"Demencia","3":"0.03924084"},{"1":"Total","2":"Antidepresivos","3":"4.31800000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+<div id="cáncer-de-páncreas-y-antidepresivosestimulantes" class="section level4">
+<h4>Cáncer de páncreas y antidepresivos/estimulantes</h4>
 <p>Después, hacemos la union de los datos de defunciones por cáncer de
 páncreas y los de medicamentos consumidos. La unión se realiza por la
 columna “Comunidades” que es la común en las dos tablas.</p>
-<p>Tabla: union de medicamentos antidepresivos/estimulantes con muertes
-por cancer de pancreas</p>
+<p><strong>Tabla: unión de la consumición de antidepresivos/estimulantes
+con las muertes por cancer de pancreas</strong></p>
 <pre class="r"><code>for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteCancerPancreas$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]&lt;- muerteCancerPancreas$Comunidades[i]
@@ -3066,12 +3079,15 @@ unionPan</code></pre>
 {"columns":[{"label":["Sexo"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Variables"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Porcentajes"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hombres","2":"CancerPancreas","3":"0.01363166"},{"1":"Hombres","2":"Antidepresivos","3":"2.54600000"},{"1":"Mujeres","2":"CancerPancreas","3":"0.01224521"},{"1":"Mujeres","2":"Antidepresivos","3":"6.00050000"},{"1":"Total","2":"CancerPancreas","3":"0.01292530"},{"1":"Total","2":"Antidepresivos","3":"4.31800000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+<div id="enfermedades-isquémicas-y-antidepresivosestimulantes" class="section level4">
+<h4>Enfermedades isquémicas y antidepresivos/estimulantes</h4>
 <p>Por último, hacemos la union de los datos de defunciones por
 enfermedades isquémicas y los de medicamentos consumidos. La unión se
 realiza por la columna “Comunidades” que es la común en las dos
 tablas.</p>
-<p>Tabla: union de medicamentos antidepresivos/estimulantes con muertes
-por isquemia</p>
+<p><strong>Tabla: unión de la consumición de antidepresivos/estimulantes
+con las muertes por isquemia</strong></p>
 <pre class="r"><code>for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
     medicamentosAntidepresivos$Comunidades[i]&lt;- muerteIsquemia$Comunidades[i]
@@ -3093,15 +3109,21 @@ unionIsq</code></pre>
 </div>
 </div>
 </div>
+</div>
 <div id="gráficos" class="section level2">
-<h2>Gráficos</h2>
-<div id="importación-de-librerias" class="section level3">
-<h3>Importación de librerias</h3>
+<h2>6. Gráficos</h2>
+<div id="importación-de-librerias-1" class="section level3">
+<h3>6.1. Importación de librerias</h3>
 <pre class="r"><code>library(ggplot2)
 library(tidyverse)</code></pre>
 </div>
-<div id="gráfica-de-antidepresivosestimulantes-con-muerte-por-demencia" class="section level3">
-<h3>Gráfica de antidepresivos/estimulantes con muerte por Demencia</h3>
+<div id="objetivos-1" class="section level3">
+<h3>6.2. Objetivos</h3>
+<div id="objetivo-1-analizar-cómo-afectan-los-antidepresivosestimulantes-al-número-de-defunciones-por-demencia" class="section level4">
+<h4>Objetivo 1: Analizar cómo afectan los antidepresivos/estimulantes al
+número de defunciones por demencia</h4>
+<p><strong>Gráfica de antidepresivos/estimulantes con muerte por
+demencia</strong></p>
 <pre class="r"><code>graficaDem&lt;-ggplot(unionDem, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;)
 graficaDem+facet_grid(&quot;Variables&quot;, scales = &quot;free_y&quot;)</code></pre>
@@ -3123,9 +3145,11 @@ relación directamente proporcional entre estas dos variable.</p></li>
 dos variables. Es necesario realizar más análisis para reforzar esta
 idea.</p>
 </div>
-<div id="gráfica-de-antidepresivosestimulantes-con-muerte-por-cancer-de-páncreas" class="section level3">
-<h3>Gráfica de antidepresivos/estimulantes con muerte por Cancer de
-Páncreas</h3>
+<div id="objetivo-2-analizar-cómo-afectan-los-antidepresivosestimulantes-al-número-de-defunciones-por-cáncer-de-páncreas" class="section level4">
+<h4>Objetivo 2: Analizar cómo afectan los antidepresivos/estimulantes al
+número de defunciones por cáncer de páncreas</h4>
+<p><strong>Gráfica de antidepresivos/estimulantes con muerte por cáncer
+de páncreas</strong></p>
 <pre class="r"><code>graficaPan&lt;-ggplot(unionPan, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;)
 graficaPan+facet_grid(&quot;Variables&quot;, scales = &quot;free_y&quot;)</code></pre>
@@ -3139,8 +3163,11 @@ pancreas en hombres y muejeres es semejante, no obstante respecto al
 consumo de antidepresivos/estimulantes es evidente que el consumo es
 mayor en mujeres que en hombres.</p>
 </div>
-<div id="gráfica-de-antidepresivosestimulantes-con-muerte-por-isquemia" class="section level3">
-<h3>Gráfica de antidepresivos/estimulantes con muerte por Isquemia</h3>
+<div id="objetivo-3-analizar-cómo-afectan-los-antidepresivosestimulantes-al-número-de-defunciones-por-demencia" class="section level4">
+<h4>Objetivo 3: Analizar cómo afectan los antidepresivos/estimulantes al
+número de defunciones por demencia</h4>
+<p><strong>Gráfica de antidepresivos/estimulantes con muerte por
+isquemia</strong></p>
 <pre class="r"><code>graficaIsq&lt;-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;)
 graficaIsq+facet_grid(&quot;Variables&quot;, scales = &quot;free_y&quot;)</code></pre>
@@ -3165,14 +3192,17 @@ pruebas para determinar de manera concluyente que existe una relación
 inversamente proporcional entre estas dos variables.</p>
 </div>
 </div>
+</div>
 <div id="bibliografia" class="section level2">
-<h2>Bibliografia</h2>
-<p>-<a href="https://www.topdoctors.es/diccionario-medico/isquemia">InformaciónIsquemia</a></p>
-<p>-<a href="https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq">InformaciónCancerPáncreas</a></p>
-<p>-<a href="https://www.alz.org/alzheimer-demencia/que-es-la-demencia#S%C3%ADntomas">InformaciónDemencia</a></p>
-<p>-<a href="https://www.ine.es/daco/daco42/ecp/ecp0323.pdf">PoblaciónEspaña2020</a></p>
-<p>-<a href="https://medlineplus.gov/spanish/antidepressants.html">InformaciónAntidepresivos</a></p>
-<p>-<a href="https://es.wikipedia.org/wiki/Estimulante">InformaciónEstimulantes</a></p>
+<h2>7. Bibliografia</h2>
+<ul>
+<li><p><a href="https://www.topdoctors.es/diccionario-medico/isquemia">InformaciónIsquemia</a></p></li>
+<li><p><a href="https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq">InformaciónCancerPáncreas</a></p></li>
+<li><p><a href="https://www.alz.org/alzheimer-demencia/que-es-la-demencia#S%C3%ADntomas">InformaciónDemencia</a></p></li>
+<li><p><a href="https://www.ine.es/jaxiT3/Tabla.htm?t=56934">PoblaciónEspaña2020</a></p></li>
+<li><p><a href="https://medlineplus.gov/spanish/antidepressants.html">InformaciónAntidepresivos</a></p></li>
+<li><p><a href="https://es.wikipedia.org/wiki/Estimulante">InformaciónEstimulantes</a></p></li>
+</ul>
 </div>
 
 
