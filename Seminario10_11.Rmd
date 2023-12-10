@@ -17,11 +17,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introducción
+## 1. Introducción
 A lo largo de este seminario vamos a estudiar como afecta el consumo de antidepresivos a la muerte debido a diferentes enfermedades como la demencia, el cáncer de pancreas y las enfermedades isquémicas.
 
-## Objetivos
-### Objetivo global 
+## 2. Objetivos
+### 2.1. Objetivo global 
 El objetivo global de nuestro trabajo es analizar la relacion de antidepresivos/estimulantes con el número de defuncion por enfermedad.
 Nuestros datos han sido extraídos desde [Datos.gob](https://datos.gob.es/es/catalogo) en formato Excel:
 
@@ -29,20 +29,19 @@ Nuestros datos han sido extraídos desde [Datos.gob](https://datos.gob.es/es/cat
 
 - Porcentaje de medicamentos consumidos según sexo y comunidad autónoma.
 
-### Objetivos específicos
+### 2.2. Objetivos específicos
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por demencia 
 
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por cáncer de páncreas
 
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por enfermedades isquémicas
 
-## Medicamentos 
-### Antidepresivos/estimulantes
+## 3. Conceptos 
+### 3.1. Antidepresivos/estimulantes
 Los antidepresivos son medicamentos psicotrópicos que se usan para tratar la depresión.
-Los estimulantes son sustancias que aumentan los niveles de actividad cognitiva y motriz
+Los estimulantes son sustancias que aumentan los niveles de actividad cognitiva y motriz.
 
-## Enfermedades
-### Demencia 
+### 3.2. Demencia 
 La demencia es una enfermedad que se produce por daños a las celulas del cerebro.Esta lesión celular interfiere con la capacidad de las células cerebrales para comunicarse entre ellas. Cuando estas mismas no pueden comunicarse con normalidad, el pensamiento, el conportamiento y los sentimientos se ven afectados.
 
 Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las siguientes funciones mentales basicas:
@@ -55,7 +54,7 @@ Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las 
 
 - Percepción visual
 
-### Cáncer de páncreas
+### 3.3. Cáncer de páncreas
 El cáncer de páncreas se produce por la formación incontrolada de células malignas cancerosas en los tejidos del páncreas, por lo que las celulas sanas de este, dejan de funcionar correctamente.
 
 Síntomas:
@@ -74,7 +73,7 @@ Síntomas:
 
 - Sensación de mucho cansancio
 
-### Enfermedades isquémicas
+### 3.4. Enfermedades isquémicas
 Las enfermedades isquémicas producen la reducción del flujo sanguíneo en los tejidos del cuerpo humano, es decir disminuye el nivel de nutrientes y oxígeno en las zonas afectadas. 
 
 Síntomas:
@@ -93,10 +92,9 @@ Síntomas:
 
 - Náuseas y vomitos
 
-## Importacion de datos
-### Importacion de librerias
+## 4. Importacion de datos
+### 4.1. Importación de librerias
 ```{r message = FALSE}
-library(conflicted)
 library(rjson)
 library(tidyjson)
 library(dplyr)
@@ -104,13 +102,15 @@ library(tidyverse)
 library(readxl)
 ```
 
-### Datos en Excel
+### 4.2. Carga de los datos en Excel
+Hemos escogido el formato Excel para tratar los datos, debido a la complejidad para trabajar con los datos en JSON.
 ```{r message = FALSE}
 enfermedades2 <- read_excel("DATOS/enfermedades.xlsx")
 medicamentos2 <- read_excel("DATOS/medicamentos_consumidos.xlsx")
 ```
 
-### Tabla de las defunciones por enfermedad según sexo
+## 5. Tratamiento de los datos
+### 5.1. Defunciones por enfermedad según sexo y comunidad
 Primero, creamos una tabla llamada "Enfe" igual que la tabla inicial "Enfermedades2", pero a partir de la fila 7 para quedarnos con los datos que nos interesan.
 ```{r}
 Enfe <- enfermedades2%>%
@@ -118,9 +118,10 @@ Enfe <- enfermedades2%>%
 
 ```
 
+#### Demencia
 Despues, hemos creado un dataframe que contiene las comunidades y los datos de las muertes por demencia según sexo.
 
-Tabla: muertes por demencia en todas las comunidades(total, hombre y mujer)
+**Tabla: muertes por demencia en todas las comunidades (total, hombre y mujer)**
 ```{r}
 # Primero creamos 4 vectores vacíos
 comunidades =c()
@@ -150,14 +151,16 @@ muerteDemencia <- data.frame(
 muerteDemencia
 ```
 
+#### Cáncer de páncreas
 Además, creamos un dataframe que contiene las comunidades y los datos de las muertes por cáncer de páncreas según sexo.
 
-Tabla: muertes por cáncer de páncreas en todas las comunidades(total, hombre y mujer)
+**Tabla: muertes por cáncer de páncreas en todas las comunidades (total, hombre y mujer)**
 ```{r}
 # Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
 totalCP = c()
 mujerCP = c()
 hombreCP = c()
+
 
 # Después vamos recorriendo la tabla Enfe y vamos accediendo a las filas en las que ponga "Cancer de páncreas", tras esto añadimos al vector vacío llamado "comunidades" las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila "Cancer de páncreas".
 # A continuación añadimos a los vectores total, mujer y hombre los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes a la fila de "Cancer de páncreas"
@@ -172,16 +175,18 @@ for(i in 1:nrow(Enfe)){
 # Creamos un dataframe llamado muerteCancerPancreas con los vectores creados anteriormente
 muerteCancerPancreas <- data.frame(
   Comunidades = comunidades,
-  TotalCancerPancreas = as.integer(totalCP),
-  HombreCancerPancreas = as.integer(hombreCP),
-  MujerCancerPancreas = as.integer(mujerCP))
+  TotalCancerPancreas = suppressWarnings(as.numeric(totalCP)),
+  HombreCancerPancreas = suppressWarnings(as.numeric(hombreCP)),
+  MujerCancerPancreas = suppressWarnings(as.numeric(mujerCP))
+)
 
 muerteCancerPancreas
 ```
 
+#### Enfermedades isquémicas
 Por último, hemos creado un dataframe que contiene las comunidades y los datos de las muertes por enfermedades isquémicas según sexo.
 
-Tabla: muertes por enfermedades isquémicas  en todas las comunidades(total, hombre y mujer)
+**Tabla: muertes por enfermedades isquémicas  en todas las comunidades(total, hombre y mujer)**
 ```{r}
 # Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
 totalIsq = c()
@@ -201,17 +206,17 @@ for(i in 1:nrow(Enfe)){
 # Creamos un dataframe llamado muerteIsquemia con los vectores creados anteriormente
 muerteIsquemia <- data.frame(
   Comunidades = comunidades,
-  TotalIsquemia = as.integer(totalIsq),
-  HombreIsquemia = as.integer(hombreIsq),
-  MujerIsquemia = as.integer(mujerIsq))
+  TotalIsquemia = as.numeric(totalIsq),
+  HombreIsquemia = as.numeric(hombreIsq),
+  MujerIsquemia = as.numeric(mujerIsq))
 
 muerteIsquemia
 ```
 
-### Tabla de consumición de antidepresivos/estimulantes
+### 5.2. Consumición de antidepresivos/estimulantes según sexo y comunidad
 Hemos creado un dataframe que contiene las comunidades y los datos de la consumición de antidepresivos/estimulantes segun sexo.
 
-Tabla:Consumo de antidepresivos/estimulantes en todas las comunidades(total, hombre y mujer)
+**Tabla: Consumo de antidepresivos/estimulantes en todas las comunidades(total, hombre y mujer)**
 ```{r}
 # Creamos un dataframe que contenga las filas de la tabla medicamentos2 que tienen la información que nos interesa
 medicamentosAntidepresivos<- data.frame(
@@ -236,9 +241,11 @@ poblacionHombres2020<-23210668
 poblacionMujeres2020<-24107382
 ```
 
+### 5.3. Unión de las tablas
+#### Demencia y antidepresivos/estimulantes
 Ahora, hacemos la union de los datos de defunciones por demencia y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
 
-Tabla: union de medicamentos antidepresivos/estimulantes con muertes por demencia:
+**Tabla: unión de la consumición de antidepresivos/estimulantes con las muertes por demencia:**
 ```{r message = FALSE}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteDemencia$Comunidades[i]){
@@ -255,9 +262,10 @@ unionDem <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c(
 unionDem
 ```
 
+#### Cáncer de páncreas y antidepresivos/estimulantes
 Después, hacemos la union de los datos de defunciones por cáncer de páncreas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
 
-Tabla: union de medicamentos antidepresivos/estimulantes con muertes por cancer de pancreas 
+**Tabla: unión de la consumición de antidepresivos/estimulantes con las muertes por cancer de pancreas**
 ```{r message = FALSE}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteCancerPancreas$Comunidades[i]){
@@ -275,9 +283,10 @@ unionPan <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, b
 unionPan
 ```
 
+#### Enfermedades isquémicas y antidepresivos/estimulantes
 Por último, hacemos la union de los datos de defunciones por enfermedades isquémicas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
 
-Tabla: union de medicamentos antidepresivos/estimulantes con muertes por isquemia 
+**Tabla: unión de la consumición de antidepresivos/estimulantes con las muertes por isquemia**
 ```{r unionIsq}
 for(i in 1:nrow(medicamentosAntidepresivos)){
   if(medicamentosAntidepresivos$Comunidades[i] != muerteIsquemia$Comunidades[i]){
@@ -295,14 +304,16 @@ unionIsq <-full_join(x = medicamentosAntidepresivos, y = muerteIsquemia, by = c(
 unionIsq
 ```
 
-## Gráficos
-### Importación de librerias
+## 6. Gráficos
+### 6.1. Importación de librerias
 ```{r}
 library(ggplot2)
 library(tidyverse)
 ```
 
-### Gráfica de antidepresivos/estimulantes con muerte por Demencia
+### 6.2. Objetivos
+#### Objetivo 1: Analizar cómo afectan los antidepresivos/estimulantes al número de defunciones por demencia
+**Gráfica de antidepresivos/estimulantes con muerte por demencia**
 ```{r}
 graficaDem<-ggplot(unionDem, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
@@ -319,7 +330,8 @@ Vamos a realizar el análisis de la relacion entre el consumo de antidepresivos/
 
 Aún así, este análisis no explica completamente la relación entre las dos variables. Es necesario realizar más análisis para reforzar esta idea.
 
-### Gráfica de antidepresivos/estimulantes con muerte por Cancer de Páncreas
+#### Objetivo 2: Analizar cómo afectan los antidepresivos/estimulantes al número de defunciones por cáncer de páncreas
+**Gráfica de antidepresivos/estimulantes con muerte por cáncer de páncreas**
 ```{r}
 graficaPan<-ggplot(unionPan, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
@@ -332,8 +344,8 @@ A continuacion vamos a reliazar el analisis en la relacion entre el consumo de a
 
 Como podemos observar en la grafica, las muertes por cancer de pancreas en hombres y muejeres es semejante, no obstante respecto al consumo de antidepresivos/estimulantes es evidente que el consumo es mayor en mujeres que en hombres. 
 
-
-### Gráfica de antidepresivos/estimulantes con muerte por Isquemia
+#### Objetivo 3: Analizar cómo afectan los antidepresivos/estimulantes al número de defunciones por demencia
+**Gráfica de antidepresivos/estimulantes con muerte por isquemia**
 ```{r}
 graficaIsq<-ggplot(unionIsq, aes(fill = Variables, y=Porcentajes, x=Sexo)) + 
     geom_bar(position="dodge", stat="identity")
@@ -350,15 +362,15 @@ Por último vamos a realiazar el analisis en la relacion entre el consumo de ant
 
 A pesar de todo esto, es necesario realizar un mayor número de pruebas para determinar de manera concluyente que existe una relación inversamente proporcional entre estas dos variables.
 
-## Bibliografia
--[InformaciónIsquemia](https://www.topdoctors.es/diccionario-medico/isquemia)
+## 7. Bibliografia
+- [InformaciónIsquemia](https://www.topdoctors.es/diccionario-medico/isquemia)
 
--[InformaciónCancerPáncreas](https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq)
+- [InformaciónCancerPáncreas](https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq)
 
--[InformaciónDemencia](https://www.alz.org/alzheimer-demencia/que-es-la-demencia#S%C3%ADntomas)
+- [InformaciónDemencia](https://www.alz.org/alzheimer-demencia/que-es-la-demencia#S%C3%ADntomas)
 
--[PoblaciónEspaña2020](https://www.ine.es/daco/daco42/ecp/ecp0323.pdf)
+- [PoblaciónEspaña2020](https://www.ine.es/jaxiT3/Tabla.htm?t=56934)
 
--[InformaciónAntidepresivos](https://medlineplus.gov/spanish/antidepressants.html)
+- [InformaciónAntidepresivos](https://medlineplus.gov/spanish/antidepressants.html) 
 
--[InformaciónEstimulantes](https://es.wikipedia.org/wiki/Estimulante)
+- [InformaciónEstimulantes](https://es.wikipedia.org/wiki/Estimulante) 
