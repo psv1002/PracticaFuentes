@@ -14,6 +14,47 @@ output:
 ---
 ![](./demencia.jpg){width='200px'}
 
+## Indice
+ 1. Introducción
+
+ 2. Objetivos
+ 
+    2.1 Objetivo Global
+    
+    2.2 Objetivos Específicos
+    
+ 3. Conceptos
+
+    3.1 Antidepresivos/estimulantes
+  
+    3.2 Demencia
+  
+    3.3 Cáncer de Páncreas
+  
+    3.4 Enfermedades isquémicas
+  
+ 4. Importación de datos
+
+    4.1 Importación de librerías
+  
+    4.2 Carga de los datos en Excel
+  
+ 5. Tratamiento de datos
+
+    5.1. Defunciones por enfermedad según sexo y comunidad
+  
+    5.2. Consumición de antidepresivos/estimulantes según sexo y comunidad
+  
+    5.3. Unión de las tablas
+  
+ 6. Gráficos
+
+    6.1. Importación de librerias
+  
+    6.2 Objetivos
+  
+ 7. Bibliografía
+
 ## 1. Introducción
 A lo largo de este seminario vamos a estudiar como afecta el consumo de antidepresivos a la muerte debido a diferentes enfermedades como la demencia, el cáncer de pancreas y las enfermedades isquémicas.
 
@@ -36,6 +77,7 @@ Nuestros datos han sido extraídos desde [Datos.gob](https://datos.gob.es/es/cat
 ## 3. Conceptos 
 ### 3.1. Antidepresivos/estimulantes
 Los antidepresivos son medicamentos psicotrópicos que se usan para tratar la depresión.
+
 Los estimulantes son sustancias que aumentan los niveles de actividad cognitiva y motriz.
 
 ### 3.2. Demencia 
