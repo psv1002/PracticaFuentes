@@ -14,7 +14,7 @@
 <meta name="author" content="Beatriz Alonso Martín" />
 
 
-<title>Seminario Fuentes</title>
+<title>Influencia de los antidepresivos/estimulantes en la muerte por diferentes enfermedades</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -2751,17 +2751,21 @@ border-radius: 0px;
 
 
 
-<h1 class="title toc-ignore">Seminario Fuentes</h1>
+<h1 class="title toc-ignore">Influencia de los
+antidepresivos/estimulantes en la muerte por diferentes
+enfermedades</h1>
+<h3 class="subtitle">Seminario Fuentes de datos Biomédicas y Web
+Semántica</h3>
 <h4 class="author">Aitana Crespo Ferrero</h4>
 <h4 class="author">Paula Santamaría Velasco</h4>
 <h4 class="author">Beatriz Alonso Martín</h4>
-<h4 class="date">09 diciembre, 2023</h4>
+<h4 class="date">10 diciembre, 2023</h4>
 
 </div>
 
 
-<div id="introduccion" class="section level2">
-<h2>Introduccion</h2>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
 <p>A lo largo de este seminario vamos a estudiar como afecta el consumo
 de antidepresivos a la muerte debido a diferentes enfermedades como la
 demencia, el cáncer de pancreas y las enfermedades isquémicas.</p>
@@ -2781,8 +2785,8 @@ autónoma.</p></li>
 autónoma.</p></li>
 </ul>
 </div>
-<div id="objetivos-especificos" class="section level3">
-<h3>Objetivos especificos</h3>
+<div id="objetivos-específicos" class="section level3">
+<h3>Objetivos específicos</h3>
 <ul>
 <li><p>Analizar como afectan los antidepresivos/estimulantes al número
 de defunciones por demencia</p></li>
@@ -2804,6 +2808,23 @@ niveles de actividad cognitiva y motriz</p>
 </div>
 <div id="enfermedades" class="section level2">
 <h2>Enfermedades</h2>
+<div id="demencia" class="section level3">
+<h3>Demencia</h3>
+<p>La demencia es una enfermedad que se produce por daños a las celulas
+del cerebro.Esta lesión celular interfiere con la capacidad de las
+células cerebrales para comunicarse entre ellas. Cuando estas mismas no
+pueden comunicarse con normalidad, el pensamiento, el conportamiento y
+los sentimientos se ven afectados.</p>
+<p>Los síntomas de la demencia varian mucho, pero normalmente se ven
+afetados las siguientes funciones mentales basicas:</p>
+<ul>
+<li><p>Memoria</p></li>
+<li><p>Comunicación y lenguaje</p></li>
+<li><p>Capacidad de concentrarse y prestar atencion razonamiento y
+jucio</p></li>
+<li><p>Percepción visual</p></li>
+</ul>
+</div>
 <div id="cáncer-de-páncreas" class="section level3">
 <h3>Cáncer de páncreas</h3>
 <p>El cáncer de páncreas se produce por la formación incontrolada de
@@ -2836,43 +2857,18 @@ nutrientes y oxígeno en las zonas afectadas.</p>
 <li><p>Náuseas y vomitos</p></li>
 </ul>
 </div>
-<div id="demencia" class="section level3">
-<h3>Demencia</h3>
-<p>La demencia es una enfermedad que se produce por daños a las celulas
-del cerebro.Esta lesión celular interfiere con la capacidad de las
-células cerebrales para comunicarse entre ellas. Cuando estas mismas no
-pueden comunicarse con normalidad, el pensamiento, el conportamiento y
-los sentimientos se ven afectados.</p>
-<p>Los síntomas de la demencia varian mucho, pero normalmente se ven
-afetados las siguientes funciones mentales basicas:</p>
-<ul>
-<li><p>Memoria</p></li>
-<li><p>Comunicación y lenguaje</p></li>
-<li><p>Capacidad de concentrarse y prestar atencion razonamiento y
-jucio</p></li>
-<li><p>Percepción visual</p></li>
-</ul>
-</div>
 </div>
 <div id="importacion-de-datos" class="section level2">
 <h2>Importacion de datos</h2>
 <div id="importacion-de-librerias" class="section level3">
 <h3>Importacion de librerias</h3>
-<pre class="r"><code>library(conflicted)</code></pre>
-<pre><code>## Warning: package &#39;conflicted&#39; was built under R version 4.3.2</code></pre>
-<pre class="r"><code>library(rjson)
+<pre class="r"><code>library(conflicted)
+library(rjson)
 library(tidyjson)</code></pre>
 <pre><code>## Warning: package &#39;tidyjson&#39; was built under R version 4.3.2</code></pre>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.3.2</code></pre>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.3.2</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.3.2</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.3.2</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.3.2</code></pre>
-<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 4.3.2</code></pre>
-<pre class="r"><code>library(readxl)</code></pre>
-<pre><code>## Warning: package &#39;readxl&#39; was built under R version 4.3.2</code></pre>
+<pre class="r"><code>library(dplyr)
+library(tidyverse)
+library(readxl)</code></pre>
 </div>
 <div id="datos-en-excel" class="section level3">
 <h3>Datos en Excel</h3>
@@ -2888,13 +2884,13 @@ que nos interesan.</p>
   slice(.data = ., 7:nrow(enfermedades2))</code></pre>
 <p>Despues, hemos creado un dataframe que contiene las comunidades y los
 datos de las muertes por demencia según sexo.</p>
-<p>Tabla: muertes por cancer de pancreas en todas las comunidades(total,
-hombre y mujer)</p>
+<p>Tabla: muertes por demencia en todas las comunidades(total, hombre y
+mujer)</p>
 <pre class="r"><code># Primero creamos 4 vectores vacíos
 comunidades =c()
-total = c()
-mujer = c()
-hombre = c()
+totalDem = c()
+mujerDem = c()
+hombreDem = c()
 
 # Después vamos recorriendo la tabla Enfe y vamos accediendo a las filas en las que ponga &quot;Demencia&quot;. Tras esto añadimos al vector vacío llamado &quot;comunidades&quot; las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila &quot;Demencia&quot;.
 # A continuación, añadimos a los vectores total, mujer y hombre los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes a la fila de &quot;Demencia&quot;
@@ -2902,18 +2898,19 @@ hombre = c()
 for(i in 1:nrow(Enfe)){
     if(!is.na(Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i]) &amp;&amp; Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i] == &quot;Demencia&quot;){
       comunidades &lt;- append(comunidades,Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i-21])
-      total &lt;- append(total,Enfe$...2[i+1])
-      hombre &lt;- append(hombre,Enfe$...2[i+2])
-      mujer &lt;-append(mujer,Enfe$...2[i+3])
+      totalDem &lt;- append(totalDem,Enfe$...2[i+1])
+      hombreDem &lt;- append(hombreDem,Enfe$...2[i+2])
+      mujerDem &lt;-append(mujerDem,Enfe$...2[i+3])
   }
 }
 
 # Creamos un dataframe llamado muerteDemencia con los vectores creados anteriormente
 muerteDemencia &lt;- data.frame(
   Comunidades = comunidades,
-  TotalDemencia = as.integer(total),
-  HombreDemencia = as.integer(hombre),
-  MujerDemencia = as.integer(mujer))
+  TotalDemencia = as.integer(totalDem),
+  HombreDemencia = as.integer(hombreDem),
+  MujerDemencia = as.integer(mujerDem))
+
 muerteDemencia</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -2964,26 +2961,27 @@ los datos de las muertes por enfermedades isquémicas según sexo.</p>
 <p>Tabla: muertes por enfermedades isquémicas en todas las
 comunidades(total, hombre y mujer)</p>
 <pre class="r"><code># Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
-total_isq = c()
-mujer_isq = c()
-hombre_isq = c()
+totalIsq = c()
+mujerIsq = c()
+hombreIsq = c()
 
 # Después vamos recorriendo la tabla Enfe y vamos accediendo a las filas en las que ponga &quot;Enfermedades isquémicas del corazón&quot;, tras esto añadimos al vector vacío llamado &quot;comunidades&quot; las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila &quot;Enfermedades isquémicas del corazón&quot;.
 # A continuación añadimos a los vectores total, mujer y hombre los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes a la fila de &quot;Enfermedades isquémicas del corazón&quot;
 for(i in 1:nrow(Enfe)){
     if(!is.na(Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i]) &amp;&amp; Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i] == &quot;Enfermedades isquémicas del corazón&quot;){
-      total_isq &lt;- append(total_isq,Enfe$...2[i+1])
-      hombre_isq &lt;- append(hombre_isq,Enfe$...2[i+2])
-      mujer_isq &lt;-append(mujer_isq,Enfe$...2[i+3])
+      totalIsq &lt;- append(totalIsq,Enfe$...2[i+1])
+      hombreIsq &lt;- append(hombreIsq,Enfe$...2[i+2])
+      mujerIsq &lt;-append(mujerIsq,Enfe$...2[i+3])
   }
 }
 
 # Creamos un dataframe llamado muerteIsquemia con los vectores creados anteriormente
 muerteIsquemia &lt;- data.frame(
   Comunidades = comunidades,
-  TotalIsquemia = as.integer(total_isq),
-  HombreIsquemia = as.integer(hombre_isq),
-  MujerIsquemia = as.integer(mujer_isq))
+  TotalIsquemia = as.integer(totalIsq),
+  HombreIsquemia = as.integer(hombreIsq),
+  MujerIsquemia = as.integer(mujerIsq))
+
 muerteIsquemia</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -3037,6 +3035,7 @@ unionDem &lt;-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by =
             Demencia = c(sum(HombreDemencia,na.rm = TRUE)*100/poblacionHombres2020, sum(MujerDemencia,na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalDemencia,na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%&gt;%
   pivot_longer(names_to = &quot;Variables&quot;, values_to = &quot;Porcentajes&quot;, cols = (Demencia:Antidepresivos))
+
 unionDem</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -3060,6 +3059,7 @@ unionPan &lt;-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas
             CancerPancreas = c(sum(HombreCancerPancreas, na.rm = TRUE)*100/poblacionHombres2020, sum(MujerCancerPancreas, na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalCancerPancreas, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%&gt;%
   pivot_longer(names_to = &quot;Variables&quot;, values_to = &quot;Porcentajes&quot;, cols = (CancerPancreas:Antidepresivos))
+
 unionPan</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">

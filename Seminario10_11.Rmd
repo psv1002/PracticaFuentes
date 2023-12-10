@@ -1,5 +1,6 @@
 ---
-title: "Seminario Fuentes"
+title: "Influencia de los antidepresivos/estimulantes en la muerte por diferentes enfermedades"
+subtitle: "Seminario Fuentes de datos Biomédicas y Web Semántica"
 author:
   - "Aitana Crespo Ferrero" 
   - "Paula Santamaría Velasco" 
@@ -16,7 +17,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduccion
+## Introducción
 A lo largo de este seminario vamos a estudiar como afecta el consumo de antidepresivos a la muerte debido a diferentes enfermedades como la demencia, el cáncer de pancreas y las enfermedades isquémicas.
 
 ## Objetivos
@@ -28,7 +29,7 @@ Nuestros datos han sido extraídos desde [Datos.gob](https://datos.gob.es/es/cat
 
 - Porcentaje de medicamentos consumidos según sexo y comunidad autónoma.
 
-### Objetivos especificos
+### Objetivos específicos
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por demencia 
 
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por cáncer de páncreas
@@ -41,6 +42,19 @@ Los antidepresivos son medicamentos psicotrópicos que se usan para tratar la de
 Los estimulantes son sustancias que aumentan los niveles de actividad cognitiva y motriz
 
 ## Enfermedades
+### Demencia 
+La demencia es una enfermedad que se produce por daños a las celulas del cerebro.Esta lesión celular interfiere con la capacidad de las células cerebrales para comunicarse entre ellas. Cuando estas mismas no pueden comunicarse con normalidad, el pensamiento, el conportamiento y los sentimientos se ven afectados.
+
+Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las siguientes funciones mentales basicas:
+
+- Memoria 
+
+- Comunicación y lenguaje 
+
+- Capacidad de concentrarse y prestar atencion razonamiento y jucio 
+
+- Percepción visual
+
 ### Cáncer de páncreas
 El cáncer de páncreas se produce por la formación incontrolada de células malignas cancerosas en los tejidos del páncreas, por lo que las celulas sanas de este, dejan de funcionar correctamente.
 
@@ -79,19 +93,6 @@ Síntomas:
 
 - Náuseas y vomitos
 
-### Demencia 
-La demencia es una enfermedad que se produce por daños a las celulas del cerebro.Esta lesión celular interfiere con la capacidad de las células cerebrales para comunicarse entre ellas. Cuando estas mismas no pueden comunicarse con normalidad, el pensamiento, el conportamiento y los sentimientos se ven afectados.
-
-Los síntomas de la demencia varian mucho, pero normalmente se ven afetados las siguientes funciones mentales basicas:
-
-- Memoria 
-
-- Comunicación y lenguaje 
-
-- Capacidad de concentrarse y prestar atencion razonamiento y jucio 
-
-- Percepción visual 
-
 ## Importacion de datos
 ### Importacion de librerias
 ```{r message = FALSE}
@@ -119,13 +120,13 @@ Enfe <- enfermedades2%>%
 
 Despues, hemos creado un dataframe que contiene las comunidades y los datos de las muertes por demencia según sexo.
 
-Tabla: muertes por cancer de pancreas en todas las comunidades(total, hombre y mujer)
+Tabla: muertes por demencia en todas las comunidades(total, hombre y mujer)
 ```{r}
 # Primero creamos 4 vectores vacíos
 comunidades =c()
-total = c()
-mujer = c()
-hombre = c()
+totalDem = c()
+mujerDem = c()
+hombreDem = c()
 
 # Después vamos recorriendo la tabla Enfe y vamos accediendo a las filas en las que ponga "Demencia". Tras esto añadimos al vector vacío llamado "comunidades" las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila "Demencia".
 # A continuación, añadimos a los vectores total, mujer y hombre los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes a la fila de "Demencia"
@@ -133,18 +134,19 @@ hombre = c()
 for(i in 1:nrow(Enfe)){
     if(!is.na(Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i]) && Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i] == "Demencia"){
       comunidades <- append(comunidades,Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i-21])
-      total <- append(total,Enfe$...2[i+1])
-      hombre <- append(hombre,Enfe$...2[i+2])
-      mujer <-append(mujer,Enfe$...2[i+3])
+      totalDem <- append(totalDem,Enfe$...2[i+1])
+      hombreDem <- append(hombreDem,Enfe$...2[i+2])
+      mujerDem <-append(mujerDem,Enfe$...2[i+3])
   }
 }
 
 # Creamos un dataframe llamado muerteDemencia con los vectores creados anteriormente
 muerteDemencia <- data.frame(
   Comunidades = comunidades,
-  TotalDemencia = as.integer(total),
-  HombreDemencia = as.integer(hombre),
-  MujerDemencia = as.integer(mujer))
+  TotalDemencia = as.integer(totalDem),
+  HombreDemencia = as.integer(hombreDem),
+  MujerDemencia = as.integer(mujerDem))
+
 muerteDemencia
 ```
 
@@ -173,6 +175,7 @@ muerteCancerPancreas <- data.frame(
   TotalCancerPancreas = as.integer(totalCP),
   HombreCancerPancreas = as.integer(hombreCP),
   MujerCancerPancreas = as.integer(mujerCP))
+
 muerteCancerPancreas
 ```
 
@@ -181,28 +184,28 @@ Por último, hemos creado un dataframe que contiene las comunidades y los datos 
 Tabla: muertes por enfermedades isquémicas  en todas las comunidades(total, hombre y mujer)
 ```{r}
 # Primero creamos 3 vectores vacíos, esta vez no creamos el vector comunidad porque nos sirve el creado antes
-total_isq = c()
-mujer_isq = c()
-hombre_isq = c()
+totalIsq = c()
+mujerIsq = c()
+hombreIsq = c()
 
 # Después vamos recorriendo la tabla Enfe y vamos accediendo a las filas en las que ponga "Enfermedades isquémicas del corazón", tras esto añadimos al vector vacío llamado "comunidades" las comunidades que hay en nuestra tabla inicial que se encuentran 21 filas antes que la fila "Enfermedades isquémicas del corazón".
 # A continuación añadimos a los vectores total, mujer y hombre los datos correspondientes que se encuentran en la 1, 2 o 3 filas siguientes a la fila de "Enfermedades isquémicas del corazón"
 for(i in 1:nrow(Enfe)){
     if(!is.na(Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i]) && Enfe$`Defunciones según causa de muerte. Avance enero-mayo 2020`[i] == "Enfermedades isquémicas del corazón"){
-      total_isq <- append(total_isq,Enfe$...2[i+1])
-      hombre_isq <- append(hombre_isq,Enfe$...2[i+2])
-      mujer_isq <-append(mujer_isq,Enfe$...2[i+3])
+      totalIsq <- append(totalIsq,Enfe$...2[i+1])
+      hombreIsq <- append(hombreIsq,Enfe$...2[i+2])
+      mujerIsq <-append(mujerIsq,Enfe$...2[i+3])
   }
 }
 
 # Creamos un dataframe llamado muerteIsquemia con los vectores creados anteriormente
 muerteIsquemia <- data.frame(
   Comunidades = comunidades,
-  TotalIsquemia = as.integer(total_isq),
-  HombreIsquemia = as.integer(hombre_isq),
-  MujerIsquemia = as.integer(mujer_isq))
-muerteIsquemia
+  TotalIsquemia = as.integer(totalIsq),
+  HombreIsquemia = as.integer(hombreIsq),
+  MujerIsquemia = as.integer(mujerIsq))
 
+muerteIsquemia
 ```
 
 ### Tabla de consumición de antidepresivos/estimulantes
@@ -248,6 +251,7 @@ unionDem <-full_join(x = medicamentosAntidepresivos, y = muerteDemencia, by = c(
             Demencia = c(sum(HombreDemencia,na.rm = TRUE)*100/poblacionHombres2020, sum(MujerDemencia,na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalDemencia,na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (Demencia:Antidepresivos))
+
 unionDem
 ```
 
@@ -267,8 +271,8 @@ unionPan <-full_join(x = medicamentosAntidepresivos, y = muerteCancerPancreas, b
             CancerPancreas = c(sum(HombreCancerPancreas, na.rm = TRUE)*100/poblacionHombres2020, sum(MujerCancerPancreas, na.rm = TRUE)*100/poblacionMujeres2020, sum(TotalCancerPancreas, na.rm = TRUE)*100/poblacionEspaña2020),
             Antidepresivos = c(mean(HombreAntidepresivos), mean(MujerAntidepresivos), mean(TotalAntidepresivos)))%>%
   pivot_longer(names_to = "Variables", values_to = "Porcentajes", cols = (CancerPancreas:Antidepresivos))
-unionPan
 
+unionPan
 ```
 
 Por último, hacemos la union de los datos de defunciones por enfermedades isquémicas y los de medicamentos consumidos. La unión se realiza por la columna "Comunidades" que es la común en las dos tablas.
