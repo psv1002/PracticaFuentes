@@ -19,9 +19,3 @@ Nuestros datos han sido extraídos desde [Datos.gob](https://datos.gob.es/es/cat
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por demencia 
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por cáncer de páncreas
 - Analizar como afectan los antidepresivos/estimulantes al número de defunciones por enfermedades isquémicas
-
-# Medicamentos 
-## Antidepresivos/estimulantes
-Los antidepresivos son medicamentos psicotrópicos que se usan para tratar la depresión.
-
-Los estimulantes son sustancias que aumentan los niveles de actividad cognitiva y motriz
